@@ -5,14 +5,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="author" content="Your Name">
 	<title>Stub Page</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
 	<script src="js/faulkner_chart_styles.js"></script>
-
+	<script src="js/absalom_charts.js"></script>
 
 
 	<!-- CSS Imports -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="family.css">
+	<link rel="stylesheet" href="css/family.css">
+	<link rel="stylesheet" href="css/learning_module.css">
+	
+	
 	<style>
 		.footnotes {
 			font-size: 0.9em;
@@ -29,7 +33,7 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			margin-top:20px;
+			margin-top: 20px;
 		}
 
 		.chart-container {
@@ -52,7 +56,7 @@
 </head>
 <body>
 
-<!--This is the full html header. Will replace with the PHP version once the format has been approved. -->
+	<!--This is the full html header. Will replace with the PHP version once the format has been approved. -->
 	<div id="page_header">
 		<div id="header_logo"><a class="logo" href="/"><span class="digital">DIGITAL</span> Yoknapatawpha</a> · Commentaries</div>
 		<div id="main-menu">
@@ -172,817 +176,305 @@
 		</div>
 	</div>
 
-	<div id="content">
-		<h1 class="content_title">
-			The Bitter Sum: Accounting for Racist Speech in Faulkner's <em>Absalom, Absalom!</em>
-		</h1>
-		<div class="inner_content">
-			<h2 class="content_sub_title">Johannes Burgers and Susan Scott Parrish</h2>
+	<div class="container">
 
-			<blockquote>"The word n-----, you see, sums up for us who are colored all the bitter years of insult and struggle in America." Langston Hughes - <em>The Big Sea (1940)</em></blockquote>
+		<div class="sidebar">
+			<div id="TableOfContents"></div>
+		</div>
+		<div class="main">
+			
+			<div class="banner-container">
 
-			<div id="intro_text">
-				<h2 class="text_title">Introduction</h2>
-				<p>The following is a brief linguistic analysis of the use of racially charged language created for the <a href="https://wwnorton.com/books/9780393422580">Norton Critical Edition of William Faulkner's <em>Absalom, Absalom!</em></a>. It supplements the introductory essay by Susan Scott Parrish, but also functions as a stand-alone piece that demonstrates how the <a href="http://faulkner.iath.virginia.edu/"> <em>Digital Yoknapatawpha</em></a> data sets can be combined with other computational techniques to illuminate different aspects of Faulkner's work.</p>
-
-				<p>Faulkner's representation of race was complicated, just as was his own relationship with race. As a Southern white moderate, he voiced his anguish over the dehumanization of African Americans under Jim Crow segregation, but, at the same time, could also casually refer to people using racial epithets during a public retelling of a <a href="https://faulkner.lib.virginia.edu/display/wfaudio02_2.html#wfaudio02_2.2">comic story</a>. There is no shortage of literature on Faulkner and race in general, and regarding <em>Absalom, Absalom!</em> in particular.<sup id="fn1"><a href="#note1">1</a></sup> Given this extensive critical history, it almost goes without saying that a computational analysis of word choice, especially with regard to racially charged language, cannot do justice to the complexities and nuances of either the text or Faulkner's broader critical intervention. Nevertheless, using techniques common in Corpus Linguistics (CL) it is possible to give a bird's-eye view of how the use of certain words is patterned. This pattern can then in turn inform subsequent close-readings.</p>
-
-				<p>The analysis here demonstrates that Faulkner's use of racial language in <em>Absalom, Absalom!</em> is not incidental but carefully patterned. This is particularly pronounced with his use of the n-word - perhaps the most charged word in American English. Faulkner makes extensive use of this word throughout this text. As the data reveal, the n-word occurs most frequently in relation to Thomas Sutpen, and in particular his origin story in the 1820s in Tidewater, Virginia. When he is unceremoniously rebuffed at the front entrance of a plantation by an enslaved butler, he becomes simultaneously race and class conscious. He learns that there is not only a hierarchy between White-and-Black, but also between White-and-White. As a "poor white" he is excluded from the plantation system, and his only recourse is to commit linguistic violence against the perceived barrier to access: enslaved Blacks. For Sutpen, the abuse of the Black body serves as a proxy for attacking the White power structure that has rejected him.</p>
-
-				<p>Needless to say, the n-word occurs frequently in this analysis. It is expressed only in its full form when directly quoting Faulkner. Otherwise, its full version has been deemed gratuitous and unnecessary for data analysis.</p>
-
-
-				<h2 class="text_title">Overview</h2>
-
-
-				<p>The following piece uses several techniques available to standard CL analysis, alongside a more complex analysis exclusively available to practitioners who have access to the <a href="http://faulkner.iath.virginia.edu/"> <em>Digital Yoknapatawpha</em></a> data set. These different techniques have been split into their own sections.</p>
-
-				<ul>
-					<li><a href="#part_1"><strong>Part 1: Statistical Overview</strong></a> - Analysis of the general linguistic pattern of the texts including word frequency and word bigrams.</li>
-					<li><a href="#part_2"><strong>Part 2: Corpus Linguistics and <em>Digital Yoknapatawpha</em></strong></a> - The <em>DY</em> database provides insight into what characters are where and at what time. Using this database, it is possible to reconstruct the language surrounding people, places, and times.<sup id="fn2"><a href="#note2">2</a></sup></li>
-					<li><a href="#part_3"><strong>Part 3: Close-reading Chapter 7</strong></a> - Close-reading of the specific chapter that uses the n-word the most.</li>
-				</ul>
-
-				<h2 id="part_1" class="text_title">Part 1: Statistical Overview <em>Absalom, Absalom!</em></h2>
-
-				<h5 class="h5">Text pre-processing</h5>
-				<p>With any textual analysis, some pre-processing is required. Many of these procedures are common CL techniques.<sup id="fn3"><a href="#note3">3</a></sup> For the analysis here the critical intervention has been to code all "racial words" by introducing a custom race vocabulary. This made it possible to identify individual racial words, but also to group them together in a meaningful way.</p>
-
-				<h5 class="h5">Word Frequency</h5>
-				<p>The chart below shows the ten most frequent non-racial words and racial words in the text. Hovering over the individual bars reveals their precise number and clicking on Non-Racial and Racial turns that particular series on and off.</p>
-
-				<div class="chart-container">
-					<div id="wordFrequencyChart" style="width: 90%;"></div>
-
-				</div>
-				<div class="figure-caption"><i>Figure 1:</i> Ten most frequent Non-racial and racial terms in <em>Absalom, Absalom!</em></div>
-
-				<p>What is immediately noticeable is that the n-word is the most frequent racial term. It exceeds the word "negro" by 46 counts. It occurs about a third as infrequently as the word Henry and twice as infrequently as the racially ambiguous Charles Bon. Importantly, the occurrences of the individual names of characters are not the same as the number of times they actually occur in the text. After all, the pronouns "he" or "she" could equally well denote a character, but that is not shown here.</p>
-
-				<div class="h5">Collocations</div>
-				<p>Collocation is the process of determining which words appear together. This is done by creating n-grams, where "n" is the number of words that might match in a sequence. By determining the n-gram of particular words, we can get a better sense of the context. For example, in her research of British Newspapers, Dawn Archer has shown that the most common bigram (n-gram of two) for Muslim is "Muslim terrorist" <a href="#Archer2016">(Archer 2016)</a>. Certainly, this strong association between these two words indicates how Muslim's are represented in the British media. In similar fashion, we get a better sense of how Faulkner is using racial language by looking at the words immediately before and after them.</p>
-
-				<div class="chart-container">
-					<div id="bigramChart" style="width: 90%;"></div>
-				</div>
-
-				<div class="figure-caption"><i>Figure 2:</i> This plot shows the most common cooccurrence of racial language in <em>Absalom, Absalom!</em></div>
-
-
-				<p>The phrase that stands out the most is one that Rosa Coldfield uses early on: "wild niggers" (4). It becomes a leitmotif for much of the text and the phrase will be repeated throughout. Yet, who repeats it and how it is repeated will change.</p>
-				<div class="chart-container">
-					<div id="speakerChart" style="width: 90%;"></div>
-				</div>
-
-
-				<div class="figure-caption"><i>Figure 3:</i> This chart shows the use of "Wild N-word" and "Wild Negro" by speaker in <em>Absalom, Absalom!</em></div>
-
-				<p>In their use of these phrases, Quentin and Rosa Coldfield share an inverse relationship. This is curious because it is Rosa who first uses the phrase when referring to the demonic Sutpen arriving in Yoknapatawpha:</p>
-				<blockquote class="blockquote d-flex justify-content-center">
-					<div class="w-75 p-3 text-justify">Out of quiet thunderclap he would abrupt (man-horse-demon) upon a scene peaceful and decorous as a schoolprize water color, faint sulphur-reek still in hair clothes and beard, with grouped behind him his band of wild niggers like beasts half tamed to walk upright like men, in attitudes wild and reposed, and manacled among them the French architect with his air grim, haggard, and tatter-ran. (4)</div>
-				</blockquote>
-
-				<p>This initial instance of the phrase uttered by Rosa is carried forward throughout the text. Interestingly, Quentin takes this singular note, and makes it a central resonance in his subsequent composition. What's more, Rosa's initial association between enslavement and wildness is another echo that reverberates. This is, despite the fact that she says it only once. The first hearing of the words provides an overture for all other versions.</p>
-
-				<div class="h5">Distribution of racial language</div>
-
-				<p>	We can also look at the word frequency data sequentially by casting it across the chapters. This indicates the frequency of a particular word in each chapter. It may be that some racial words are used in one part of the book and not in others. This gives some indication as to its value in the narrative.</p>
-				<div class="chart-container">
-					<div id="bubbleChart" style="width: 90%;"></div>
-				</div>
-
-
-				<div class="figure-caption"><i>Figure 4:</i> The above bubble chart shows the frequency of racial word use by chapter. Immediately noticeable is that the overwhelming majority of the use of the n-word appears in chapter 7.</div>
-
-				<p>Chapter 7 is particularly racially charged. While the text's various narrators (Rosa, Mr. Compson, Quentin, Shreve) predominate in certain chapters, it would be a mistake to attribute particular words to particular characters based on this raw data. We may recall that chapter 7 is a nested narrative in which we are told the story of Thomas Sutpen as he related it to General Compson who told it to Quentin, who is telling it to Shreve. There are so many narrative frames that it is very difficult to determine whose language this is. What is apparent is that the chapter in which most of Sutpen's life is revealed is steeped in pejorative racist language. To be sure, in all the other chapters the word "negro" or "black" is used more frequently to describe African Americans.</p>
-
-				<h2 class="text_title">Part 2: Corpus Linguistics and <em>Digital Yoknapatawpha</em></h2>
-				<p>Understanding when a certain word is used does not necessarily indicate who is using it. There is currently no way to determine who is speaking in <em>Absalom, Absalom!</em> This is a two-fold issue. Practically, there is no way to match the speaker with the racial terms, because the data is not available at that level of granularity. More philosophically, we may also wonder if anyone's language is truly their own in the text. This is a community that has been shaped by the same story for generations. The cadence, register, and tone all inform particular leitmotifs that occur and reoccur throughout the narrative. Indeed, one of the interesting phenomena that CL reveals is just how often certain turns of phrase are repeated, re-worked, and re-contextualized. The singularity of the speaker is unsettled by the multiplicity of the spoken.</p>
-
-				<p>That being said, it is possible to investigate the proximity of racial words relative to characters. The <em>Digital Yoknapatawpha</em> database breaks down a text into events, which are, in turn, composed of locations and characters. By cross-referencing the words with the events, we can get some notion of what words are being used around what characters.<sup id="fn4"><a href="#note4">4</a></sup></p>
-
-				<div class="h5">Top Race Words and Characters</div>
-
-				<p>While we could count all of the words associated with a character, this is not a relevant statistic. The words that make the most sense are the five most frequent race words discussed in Figure 1. These are: blood, black, negro, n-word, and white. As each character necessarily occurs with each word at a different frequency, the top five characters were selected by the number of appearances in the total number of the events.</p>
-				<div class="chart-container">
-					<div id="raceBarChart" style="width: 90%"></div>
-				</div>
-
-				<div class="figure-caption"><i>Figure 5:</i> The above chart breaks down how frequently the top five racially charged words appear in events with the five major characters. This does not necessarily mean that these characters speak these words.</div>
-
-
-				<p>The resulting chart is quite revealing. Among most of the characters, the ratio of the word negro vs. the n-word is relatively even. The most obvious difference is Thomas Sutpen. In events where he is present or mentioned the n-word occurs 132 times. Part of the reason for this is that Thomas Sutpen occurs in the most events throughout the text - 320 to be exact. Consequently, it makes sense that he has a higher chance of occurring in those events in which there is a particular racial word.</p>
-
-				<p>In order to get a better view into how often a racial word is used in the same event as a character, we need to normalize the data by the number of times the word occurs. This way we can understand, proportionally, how often a character is in an event when a particular word occurs. We know from the previous chart that the n-word occurs 152. Dividing the number of occurrences for each character by this number produces the percentage chart below.</p>
-
-				<div class="chart-container">
-					<div id="nWordCharacterChart" style="width: 90%"></div>
-				</div>
-
-
-				<p>The chart reveals, quite dramatically, that Thomas Sutpen is, in some way, part of the event 87% of the times that the n-word occurs. While it is not clear that he is using the word, it is also clear that he is the character with whom the racial epithet is most associated. Indeed, in one event it occurs 16 times. This is when Sutpen is barred from entering the front door of the plantation by the enslaved butler (187). It is this primal incident that shapes so much of Sutpen's consciousness going forward. Linguistically, it becomes the gravitational center that draws in the worst racial language the American lexicon has to offer. At the moment that he becomes aware of his class difference, he resorts to racial antagonism.</p>
-
-				<div class="h5">Time and Racial Language</div>
-
-				The use of racial language is also time bound. Certain words are more prominent during certain periods than others. The <em>DY</em> data also includes speculative dates for each event. These dates consist of both an earliest possible start date and latest possible end date. Needless to say, establishing Faulkner's chronology is not an exact science and the dates are best seen as an approximate measure. Nevertheless, they do give a general indication around what time the events take place.
-				<div class="chart-container">
-					<div id="absalomRaceDateChart" style="width: 90%;"></div>
-				</div>
-
-
-				<p>This chart makes it apparent that the n-word is the most frequently used word in the 1820s, 1830s, 1860s, and 1910s. These are the pivotal episodes in the Sutpen saga: the establishment of a racial enslavement regime, its dissolution during and after the Civil War, and Quentin's retelling of that story in 1910. After Sutpen has established himself in the 1840s and during Reconstruction, the words Black and Negro are used more frequently, albeit only a very few number of times. </p>
-
-				<div class="h5">Mapping Racial Words</div>
-
-				Because the <em>DY</em> database has mapped the approximate location of the different events in Yoknapatawpha it is also possible to view this information spatially as it plays out across the narrative. Any number of data points can be plotted, but as this leads to map crowding, only those words directly related to African Americans were used. The different layers can be enabled and disabled by clicking on the legend.
-				<div class="map-container">
-					<div id="absalomRaceMapChart"> </div>
-				</div>
-
-				<p>The map confirms for a third time that much of the most vociferous racial language is related to Sutpen's origin story in Tidewater, Virginia. This is not a dramatic reveal. Scholars have known that this was one of the key incidents of the text. What the linguistic analysis demonstrates is just how much Faulkner concentrated all the racial epithets in this one relatively small slice of text. This word density suggests how deeply this one incident shaped Sutpen.</p>
-
-				<h2 id="part_3" class="text_title">Part 3: Close-reading Chapter 7</h2>
-
-				<p>With so much of the analysis of the n-word occurring in Chapter 7, it makes sense to zoom in on this chapter to get a better sense of how and why the word occurs here so often. There is no way to do so with the data available through <em>DY</em>, because the data need to be grouped thematically. The custom chart below has grouped the events together based on time period and connection between individual events.</p>
-				<div class="chart-container">
-					<div id="chapter7NWordChart"></div>
-				</div>
-
-				<p>It is important to remember that this chapter is actually told by Quentin who is following his grandfather's telling as he heard it from Sutpen. In this framing, certain story content elicits Quentin's use of the n-word, which spikes when he establishes the 1834 storytelling milieu, that is the hunt for the French architect (seen in <span style="color: #81996F;">olive</span>); when he follows Sutpen's story back in time to his childhood residence near Pettibone's Tidewater plantation; and when he describes Wash's interactions with enslaved and free Black people in the environs of Sutpen's land in the 1860s (seen in <span style="color: #e6d812;">gold</span>).</p>
-
-				<p>In each one, we witness a scene of <em>intra</em>racial humiliation wherein a White worker is made to feel subject to a member of the White plantocracy. What comes to represent this White-over-White hierarchy, however, is not the debased White person's own body, but instead the Black body made to stand in for White power. On the road down from the mountains, the first Black person the young Sutpens ever see is that of a tavern bouncer, ejecting their drunken father as if he's a "sack of meal" (182); next is the coachman who commands the young Sutpens out of the road; at Pettibone's threshold it is the butler who tells young Sutpen "never to come to that front door again" (188); in the Mississippi woods, it is the Afro-Haitian hunters who bar the escape of the French-Martinican architect;<sup id="fn5"><a href="#note5">5</a></sup> at the plantation during wartime, where Wash Jones boasted that he was overseeing the enslaved, Black people would "stop him in the road that came up out of the bottom" (226) to explode his illusion with derisive laughter; finally, the Black midwife, who in 1869 is about to deliver a grandchild to Wash (whose Sutpen blood will "dispossess him" <a href="#Faulkner1934"> (Faulkner 1934, 262)</a>), she "order[s] him out" (230) of his own cabin. In all these scenes, it is a Black laborer (bouncer, coachman, butler, hunter, field worker, midwife), in slavery or not far from it, who must act as a boundary marker, keeping underling Whites <em>outside</em> the tavern, great house, or shack; <em>off</em> the high point of the road; or <em>within</em> the edges of property. In these moments, the underling White thinks he hears "terrible [Black] laughing."</p>
-
-				<p>The boy Sutpen, a prototype for these other White subaltern figures, comes to feel that this barrier of laughter, thin as the filament of a balloon, is there to protectively surround the space of the great planter. If one were to strike at the balloon, it would only issue out the laughter, while the thing the balloon surrounded, the "it" of propertied power, would go unharmed.<sup id="fn6"><a href="#note6">6</a></sup></p>
-
-
-
-				<p>Though this seems like a sophisticated reading of the semiotics of race for a thirteen-year-old boy, it also thins out to impossible two-dimensionality the lives of those Black laborers. Put schematically, one could say that Sutpen falls out of a White mountain subsistence economy into racial capitalism, but then misperceives Black labor, in all its forms, as a mere mocking filigree on &mdash; rather than the constitutive base of &mdash; White plantation property. He only reads the working Black body as the livery of White ease, not as that which makes White ease in the first place.</p>
-
-				<p>Relating these scenes, Quentin marks, again and again, instances of White-on-White humiliation by using this White-on-Black slur. But after Wash, in the final scene of the chapter, hears Sutpen mock the shared White 'blood' Wash had so long invested in, Wash finally leaves off abusing Black surrogates and "tech[es]" &mdash; fatally touches and teaches &mdash; Sutpen himself. As Wash's notion of plantocratic honor is "shredded," the need for a false target, by Wash, <em>and</em> by Quentin, disappears. Indeed, unlike his Canadian roommate, Quentin will not utter this slur again as the night wears on.</p>
-
-
-				<h2 id="conclusion" class="text_title">Conclusion</h2>
-				<p><em>Absalom</em> addressed, without yet solving, the problem that James Baldwin handed to White people in an interview in 1963. He said: "Now here in this country we've got something called a n[-word] . . . [I]t doesn't exist in any other country in the world. . . . White people invented him. . . . It had to be something you were afraid of and you invested me with . . . . You still think---I gather---that [this invention] is necessary. Well he is unnecessary to me so he must be necessary to you. I give you your problem back." The linguistic analysis of Faulkner's use of racial language in <em>Absalom, Absalom!</em> is quite striking. It demonstrates that he does not use the n-word casually and indiscriminately. Instead, it serves a specific purpose as a dramatic and thematic marker. The n-word is a way for Sutpen to denigrate the Black body at the very moment of his own sense of powerlessness. It is meant to redirect the class resentment he feels towards White enslavers onto the racialized bodies of the enslaved. Through this act of deflection, Sutpen is able to push to the periphery lingering anxieties about his own "poor white" heritage, and, by extension, his own sense of Whiteness.To borrow Baldwin's insight, Sutpen invokes the n-word as a necessary means of self-preservation, but this, paradoxically, prevents him from ever finding common cause with the enslaved. Therefore, he can never find a way to dismantle the power structure, and he will spend the rest of his life trying to mimic the very society that rejected him.</p>
-
-
-				<div class="works-cited">
-					<div class="h5">Works Cited</div>
-					<ol>
-						<li id="Archer2016">
-							Archer, Dawn. "Data Mining and Word Frequency Analysis." <em>Research Methods for Reading Digital Data in the Digital Humanities</em>, 2016, pp. 72-92.
-						</li>
-						<li id="Carden2013">
-							Carden, Mary Paniccia. “Fatherless Children and Post-Patrilineal Futures in Faulkner’s <em>Absalom, Absalom!</em>.” <em>Studies in American Fiction</em>, vol. 40, no. 2, 2013, pp. 123–145.
-						</li>
-						<li id="Crawford2004">
-							Crawford, Margo Natalie. “Interracial Embodiment and Contradiction.” <em>Signs</em>, vol. 30, no. 1, 2004, pp. 151–176.
-						</li>
-						<li id="Davis1983">
-							Davis, Thadious M. <em>Faulkner’s “Negro”: Art and the Southern Context</em>. Baton Rouge: Louisiana State University Press, 1983.
-						</li>
-						<li id="Faulkner1934">
-							Faulkner, William. 1934. “Wash.” <em>Harpers Magazine</em>, vol. 168 (February).
-						</li>
-						<li id="Faulkner2011">
-							---. 2011. <em>Absalom, Absalom!</em> Vintage International.
-						</li>
-						<li id="Ladd1994">
-							Ladd, Barbara. "The Direction of the Howling: Nationalism and the Color Line in <em>Absalom, Absalom!</em>." <em>American Literature</em>, vol. 66, no. 3, 1994, pp. 525–553.
-						</li>
-						<li id="Snead2017">
-							Snead, James. <em>Figures of Division: William Faulkner’s Major Novels</em>. New York: Methuen, 2017.
-						</li>
-						<li id="Sugimori2008">
-							Sugimori, Mine. "Racial Mixture in <em>Absalom, Absalom!</em>." <em>Faulkner Journal</em>, vol. 23, no. 1, 2008, pp. 45–65.
-						</li>
-						<li id="Sundquist1983">
-							Sundquist, Eric J. <em>Faulkner: The House Divided</em>. Baltimore: Johns Hopkins University Press, 1983.
-						</li>
-					</ol>
-				</div>
-
-
-				<div class="footnotes">
-					<ol>
-						<li id="note1">
-							One of the first and most extensive studies is Eric Sundquist's
-							<a href="#Sundquist1983"><em>Faulkner: The House Divided</em></a>. His early intervention pointed to Faulkner's treatment of miscegenation as central to understanding his work. Barbara Ladd's
-							<a href="#Ladd1994">"The Direction of the Howling": Nationalism and the Color Line in <em>Absalom, Absalom!</em></a> explores how the figure of the creole who passes as white, Charles Bon, represents a fundamental threat to white southerners conception of their own history and possible futures. Another seminal piece is that of Thadious Davis who demonstrates that the narrators each project a different abstraction of
-							<a href="#Davis1983">"The Negro"</a> in order to reconcile their own relationship with the past. Other more recent relevant scholarship includes that of
-							<a href="#Crawford2004">Crawford (2004)</a>,
-							<a href="#Sugimori2008">Sugimori (2008)</a>,
-							<a href="#Carden2013">Carden (2013)</a>, and
-							<a href="#Snead2017">Snead (2017)</a>.
-							<a href="#fn1" class="return-arrow">↩</a>
-						</li>
-						<li id="note2">
-							All of the data was generated in the R programming language using the <code>tidyverse</code> suite of packages for the calculations and the <code>plotly</code> library for the visualizations. The full repository is available at <a href="https://github.com/joostburgers/absalom_sentiment_analysis">https://github.com/joostburgers/absalom_sentiment_analysis</a>. Due to copyright issues the repository does not include the <em>Absalom, Absalom!</em> text file used for data analysis. The text file used for text analysis was the 2011 Vintage Edition [Faulkner, 2011], which corresponds with the 1990 edition we used for <em>DY</em>.
-							<a href="#fn2" class="return-arrow">↩</a>
-						</li>
-						<li id="note3">
-							The steps that follow are standard procedures in CL. The text of <em>Absalom, Absalom!</em> was read in as a txt file. It was then broken into nine chapters, and further sub-setted into sentences. The individual words were subsequently "tokenized." The process of tokenization removes capital letters, special characters, and punctuation. It enables the computer to compare words more easily. Each "stop word" was then removed. These are words like: the, a, on, at, etc. that are very frequent in any text, and do not add to the analysis. The words were then lemmatized. Lemmatization reduces a word to the word stem. For example, "fathers" becomes "father." This way all instances of the concept "father" are unified as one instance. This prevents creating separate counts for words like father, fathers, father's, and fathers'. The resulting slate of words was tagged as racially charged by adding a column called race_word and indicating TRUE or FALSE for each word. This was done by creating a list of racial words and joining it to the data table through a left sided join. Essentially, it checks to see if a word like "Negro", "White", or "Octoroon" occurs and tags it as TRUE. Such a list of racial words is necessarily imperfect as the words "black" and "white" could also denote colors and not racial designations. Still, with this pre-processing complete it is possible to provide some key statistical insights.
-							<a href="#fn3" class="return-arrow">↩</a>
-						</li>
-						<li id="note4">
-							This re-composition process is quite technical and the full process is documented here: <a href="absalom_text_processing_supplement.html"><em>Absalom, Absalom!</em> Text Processing Supplement</a>.
-							<a href="#fn4" class="return-arrow">↩</a>
-						</li>
-						<li id="note5">In a sense, they reenact their anti-French rebellion as a game without positive outcome, for this time it is enacted on behalf of their Anglo-American master.
-							<a href="#fn5" class="return-arrow">↩</a></li>
-						<li id="note6">Consider the similarity to Ahab's awareness that the face of the whale is not the enraging thing itself, just its "mask" or materialization; regardless, Ahab contends, one has no other choice but to strike through the mask.
-							<a href="#fn6" class="return-arrow">↩</a></li>
-					</ol>
+				<img src="images/archive_absalom_typescript_p2_banner.jpg" class="banner-img" alt="Banner image for Accounting for Racist Speech in Faulkner's Absalom Absalom'">
+				<div class="glance-overlay">
+					<div class="glance-title-container">
+						<h1 class="glance-title">The Bitter Sum: Accounting for Racist Speech in Faulkner's <em>Absalom, Absalom!</em></h1>
+						<h2 class="glance-subtitle">Johannes Burgers and Susan Scott Parrish</span></h2>
+					</div>
+					<div class="glance-meta">Created: 7/22/2023 | Updated: 2/10/2025</div>
 				</div>
 			</div>
-		</div>
-	</div>
+			
+			
 
-	<footer>
-	</footer>
-	<script>
-		const data = {
-			nonrace_x: ["Woman", "Grandfather", "Tell", "Judith", "House", "Bon", "Father", "Sutpen", "Time", "Henry"],
-			nonrace_y: [217, 227, 258, 272, 282, 300, 303, 353, 384, 424],
-			race_x: ["Heritage", "Breed", "Octoroon", "Race", "Slave", "Black", "Blood", "White", "Negro", "N-word"],
-			race_y: [12, 16, 22, 25, 26, 62, 90, 96, 106, 152]
-		};
+				<blockquote class="blockquote activity-quote">The word n-----, you see, sums up for us who are colored all the bitter years of insult and struggle in America.
+					<footer class="blockquote-footer">Langston Hughes - <em>The Big Sea (1940)</em></footer></blockquote>
 
+				<div class="lesson-section">
+					<h2 class="content_sub_title">Introduction</h2>
+					<div class="row">
+					<div class="column">
+					<div class="activity-instructions">
+					<p>The following is a brief linguistic analysis of the use of racially charged language created for the <a href="https://wwnorton.com/books/9780393422580">Norton Critical Edition of William Faulkner's <em>Absalom, Absalom!</em></a>. It supplements the introductory essay by Susan Scott Parrish, but also functions as a stand-alone piece that demonstrates how the <a href="http://faulkner.iath.virginia.edu/"> <em>Digital Yoknapatawpha</em></a> data sets can be combined with other computational techniques to illuminate different aspects of Faulkner's work.</p>
 
+					<p>Faulkner's representation of race was complicated, just as was his own relationship with race. As a Southern white moderate, he voiced his anguish over the dehumanization of African Americans under Jim Crow segregation, but, at the same time, could also casually refer to people using racial epithets during a public retelling of a <a href="https://faulkner.lib.virginia.edu/display/wfaudio02_2.html#wfaudio02_2.2">comic story</a>. There is no shortage of literature on Faulkner and race in general, and regarding <em>Absalom, Absalom!</em> in particular.<sup id="fn1"><a href="#note1">1</a></sup> Given this extensive critical history, it almost goes without saying that a computational analysis of word choice, especially with regard to racially charged language, cannot do justice to the complexities and nuances of either the text or Faulkner's broader critical intervention. Nevertheless, using techniques common in Corpus Linguistics (CL) it is possible to give a bird's-eye view of how the use of certain words is patterned. This pattern can then in turn inform subsequent close-readings.</p>
 
-		const nonraceTrace = {
-			x: data.nonrace_x,
-			y: data.nonrace_y,
-			name: "Non-Racial",
-			type: "bar",
-			marker: { color: faulknerChartStyles.colorway[0] },
-			opacity: 0.9,
-			hovertemplate: 'Word: %{x}<br>Count: %{y}<extra></extra>'
-		};
+					<p>The analysis here demonstrates that Faulkner's use of racial language in <em>Absalom, Absalom!</em> is not incidental but carefully patterned. This is particularly pronounced with his use of the n-word - perhaps the most charged word in American English. Faulkner makes extensive use of this word throughout this text. As the data reveal, the n-word occurs most frequently in relation to Thomas Sutpen, and in particular his origin story in the 1820s in Tidewater, Virginia. When he is unceremoniously rebuffed at the front entrance of a plantation by an enslaved butler, he becomes simultaneously race and class conscious. He learns that there is not only a hierarchy between White-and-Black, but also between White-and-White. As a "poor white" he is excluded from the plantation system, and his only recourse is to commit linguistic violence against the perceived barrier to access: enslaved Blacks. For Sutpen, the abuse of the Black body serves as a proxy for attacking the White power structure that has rejected him.</p>
 
-		const raceTrace = {
-			x: data.race_x,
-			y: data.race_y,
-			name: "Racial",
-			type: "bar",
-			marker: { color: faulknerChartStyles.colorway[8] },
-			opacity: 0.9,
-			hovertemplate: 'Word: %{x}<br>Count: %{y}<extra></extra>'
-		};
+					<p>Needless to say, the n-word occurs frequently in this analysis. It is expressed only in its full form when directly quoting Faulkner. Otherwise, its full version has been deemed gratuitous and unnecessary for data analysis.</p>
+					</div>
+					</div>
+					</div>
+				</div>
+				<div class="lesson-section">
+					<h2 class="content_sub_title">Overview</h2>
+					<div class="row">
+					<div class="column">
+					<div class="activity-quote">
+					<p>The following piece uses several techniques available to standard CL analysis, alongside a more complex analysis exclusively available to practitioners who have access to the <a href="http://faulkner.iath.virginia.edu/"> <em>Digital Yoknapatawpha</em></a> data set. These different techniques have been split into their own sections:</p>
 
+					<ul class="activity-list-unordered-blank">
+						<li><a href="#part_1"><strong>Part 1: Statistical Overview</strong></a> - Analysis of the general linguistic pattern of the texts including word frequency and word bigrams.</li>
+						<li><a href="#part_2"><strong>Part 2: Corpus Linguistics and <em>Digital Yoknapatawpha</em></strong></a> - The <em>DY</em> database provides insight into what characters are where and at what time. Using this database, it is possible to reconstruct the language surrounding people, places, and times.<sup id="fn2"><a href="#note2">2</a></sup></li>
+						<li><a href="#part_3"><strong>Part 3: Close-reading Chapter 7</strong></a> - Close-reading of the specific chapter that uses the n-word the most.</li>
+					</ul>
+					</div>
+					</div>
+					</div>
+				</div>
 
-		const layout = {
-			title: "Ten Most Frequent Non-Racial and Racial Words",
-			font: faulknerChartStyles.font,
-			xaxis: { title: "Word Stem" },
-			yaxis: { title: "Number of Words" },
-			showlegend: true,
+					<h2 id="part_1" class="text_title">Part 1: Statistical Overview <em>Absalom, Absalom!</em></h2>
 
-			paper_bgcolor: faulknerChartStyles.paperBackground,
-			plot_bgcolor: faulknerChartStyles.plotBackground,
-			margin: faulknerChartStyles.margin
-		};
+					<h5 class="h5">Text pre-processing</h5>
+					<p>With any textual analysis, some pre-processing is required. Many of these procedures are common CL techniques.<sup id="fn3"><a href="#note3">3</a></sup> For the analysis here the critical intervention has been to code all "racial words" by introducing a custom race vocabulary. This made it possible to identify individual racial words, but also to group them together in a meaningful way.</p>
 
-		Plotly.newPlot("wordFrequencyChart", [nonraceTrace, raceTrace], layout);
-	</script>
+					<h5 class="h5">Word Frequency</h5>
+					<p>The chart below shows the ten most frequent non-racial words and racial words in the text. Hovering over the individual bars reveals their precise number and clicking on Non-Racial and Racial turns that particular series on and off.</p>
 
-	<script>
-		const bigramCounts = {
-			bigram: [
-				"wild negro", "wild n-word", "white woman", "black stallion", "half breed", "monkey n-word",
-				"white girl", "black blood", "negro boy", "slave quarter", "black dress", "octoroon mistress",
-				"Pettibone n-word", "puritan heritage", "Sutpen blood", "white people"],
-			n: [12, 11, 8, 6, 6, 5, 5, 4, 4, 4, 3, 3, 3, 3, 3, 3]
-		};
+					<div class="chart-container">
+						<div id="wordFrequencyChart" style="width: 90%;"></div>
 
-		const bigramTrace = {
-			x: bigramCounts.n,
-			y: bigramCounts.bigram,
-			type: "bar",
-			orientation: "h",
-			marker: { color: faulknerChartStyles.colorway[0] },
-			opacity: 0.9,
-			hovertemplate: 'Count: %{x}<extra></extra>'
-		};
+					</div>
+					<div class="figure-caption"><i>Figure 1:</i> Ten most frequent Non-racial and racial terms in <em>Absalom, Absalom!</em></div>
 
-		const bigramLayout = {
-			title: "Fifteen Most Frequent Race Bigrams",
-			xaxis: { title: "Number of Bigrams" },
-			yaxis: { title: "Bigrams", autorange: "reversed" },
-			font: faulknerChartStyles.font,
-			paper_bgcolor: faulknerChartStyles.paperBackground,
-			plot_bgcolor: faulknerChartStyles.plotBackground,
-			margin: { l: 150, r: 50, b: 100, t: 50, pad: 4 }
-		};
+					<p>What is immediately noticeable is that the n-word is the most frequent racial term. It exceeds the word "negro" by 46 counts. It occurs about a third as infrequently as the word Henry and twice as infrequently as the racially ambiguous Charles Bon. Importantly, the occurrences of the individual names of characters are not the same as the number of times they actually occur in the text. After all, the pronouns "he" or "she" could equally well denote a character, but that is not shown here.</p>
 
-		Plotly.newPlot("bigramChart", [bigramTrace], bigramLayout);
+					<div class="h5">Collocations</div>
+					<p>Collocation is the process of determining which words appear together. This is done by creating n-grams, where "n" is the number of words that might match in a sequence. By determining the n-gram of particular words, we can get a better sense of the context. For example, in her research of British Newspapers, Dawn Archer has shown that the most common bigram (n-gram of two) for Muslim is "Muslim terrorist" <a href="#Archer2016">(Archer 2016)</a>. Certainly, this strong association between these two words indicates how Muslim's are represented in the British media. In similar fashion, we get a better sense of how Faulkner is using racial language by looking at the words immediately before and after them.</p>
+
+					<div class="chart-container">
+						<div id="bigramChart" style="width: 90%;"></div>
+					</div>
+
+					<div class="figure-caption"><i>Figure 2:</i> This plot shows the most common cooccurrence of racial language in <em>Absalom, Absalom!</em></div>
 
 
-	</script>
-	<script>
-		const speakerData = {
-			speaker: ["Rosa Coldfield", "Mr. Compson", "Quentin"],
-			wild_n_word: [1, 3, 7],
-			wild_negro: [7, 4, 1]
-		};
-
-		const wild_n_wordTrace = {
-			x: speakerData.speaker,
-			y: speakerData.wild_n_word,
-			type: "bar",
-			name: "Wild N-word",
-			marker: { color: faulknerChartStyles.colorway[0] },
-			hovertemplate: 'Speaker: %{x}<br>Count: %{y}<extra></extra>'
-		};
-
-		const wildNegroTrace = {
-			x: speakerData.speaker,
-			y: speakerData.wild_negro,
-			type: "bar",
-			name: "Wild Negro",
-			marker: { color: faulknerChartStyles.colorway[1] },
-			hovertemplate: 'Speaker: %{x}<br>Count: %{y}<extra></extra>'
-		};
-
-		const speakerLayout = {
-			title: "Use of 'Wild N-word' and 'Wild Negro' by Speaker",
-			xaxis: { title: "Speaker" },
-			yaxis: { title: "Count" },
-			barmode: "group",
-			font: faulknerChartStyles.font,
-			paper_bgcolor: faulknerChartStyles.paperBackground,
-			plot_bgcolor: faulknerChartStyles.plotBackground,
-			margin: faulknerChartStyles.margin
-		};
-
-		Plotly.newPlot("speakerChart", [wild_n_wordTrace, wildNegroTrace], speakerLayout);
-	</script>
-	<script>
-		const bubbleData = {
-			chapter: [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9],
-			word_lemma: [
-				"Black", "Blood", "N-Word", "Negro", "White", "Black", "Blood", "N-Word", "Negro", "White",
-				"Black", "Blood", "N-Word", "Negro", "White", "Black", "Blood", "N-Word", "Negro", "White",
-				"Black", "Blood", "N-Word", "Negro", "White", "Black", "Blood", "N-Word", "Negro", "White",
-				"Black", "Blood", "N-Word", "Negro", "White", "Black", "Blood", "N-Word", "Negro", "White",
-				"Black", "Blood", "N-Word", "Negro", "White"
-			],
-			n: [6, 3, 5, 23, 7, 2, 2, 2, 29, 2, 6, 6, 5, 5, 3, 3, 18, 5, 12, 16, 4, 17, 2, 5, 8, 15, 6, 6, 21, 23, 16, 15, 106, 1, 28, 5, 20, 15, 3, 8, 5, 3, 6, 7, 1],
-			y: [5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1, 5, 4, 3, 2, 1]
-		};
-
-		const yLabels = ["White", "Negro", "N-Word", "Blood", "Black"];
+					<p>The phrase that stands out the most is one that Rosa Coldfield uses early on: "wild niggers" (4). It becomes a leitmotif for much of the text and the phrase will be repeated throughout. Yet, who repeats it and how it is repeated will change.</p>
+					<div class="chart-container">
+						<div id="speakerChart" style="width: 90%;"></div>
+					</div>
 
 
-		// Map specific colors to word_lemma
-		const colorMap = {
-			"Black": faulknerChartStyles.colorway[0],
-			"Blood": faulknerChartStyles.colorway[1],
-			"N-Word": faulknerChartStyles.colorway[2],
-			"Negro": faulknerChartStyles.colorway[3],
-			"White": faulknerChartStyles.colorway[4]
-		};
+					<div class="figure-caption"><i>Figure 3:</i> This chart shows the use of "Wild N-word" and "Wild Negro" by speaker in <em>Absalom, Absalom!</em></div>
 
-		// Generate color array based on word_lemma
-		const bubbleColors = bubbleData.word_lemma.map(word => colorMap[word]);
+					<p>In their use of these phrases, Quentin and Rosa Coldfield share an inverse relationship. This is curious because it is Rosa who first uses the phrase when referring to the demonic Sutpen arriving in Yoknapatawpha:</p>
+					<blockquote class="blockquote d-flex justify-content-center">
+						<div class="w-75 p-3 text-justify">Out of quiet thunderclap he would abrupt (man-horse-demon) upon a scene peaceful and decorous as a schoolprize water color, faint sulphur-reek still in hair clothes and beard, with grouped behind him his band of wild niggers like beasts half tamed to walk upright like men, in attitudes wild and reposed, and manacled among them the French architect with his air grim, haggard, and tatter-ran. (4)</div>
+					</blockquote>
+
+					<p>This initial instance of the phrase uttered by Rosa is carried forward throughout the text. Interestingly, Quentin takes this singular note, and makes it a central resonance in his subsequent composition. What's more, Rosa's initial association between enslavement and wildness is another echo that reverberates. This is, despite the fact that she says it only once. The first hearing of the words provides an overture for all other versions.</p>
+
+					<div class="h5">Distribution of racial language</div>
+
+					<p>	We can also look at the word frequency data sequentially by casting it across the chapters. This indicates the frequency of a particular word in each chapter. It may be that some racial words are used in one part of the book and not in others. This gives some indication as to its value in the narrative.</p>
+					<div class="chart-container">
+						<div id="bubbleChart" style="width: 90%;"></div>
+					</div>
 
 
-		const bubbleTrace = {
-			x: bubbleData.chapter,
-			y: bubbleData.y,
-			text: bubbleData.word_lemma.map((word, i) => `${word} Count: ${bubbleData.n[i]}`),
-			name: bubbleData.word_lemma,
-			mode: "markers",
+					<div class="figure-caption"><i>Figure 4:</i> The above bubble chart shows the frequency of racial word use by chapter. Immediately noticeable is that the overwhelming majority of the use of the n-word appears in chapter 7.</div>
 
-			marker: {
-				size: bubbleData.n,
-				sizemode: "diameter",
-				color: bubbleColors,
+					<p>Chapter 7 is particularly racially charged. While the text's various narrators (Rosa, Mr. Compson, Quentin, Shreve) predominate in certain chapters, it would be a mistake to attribute particular words to particular characters based on this raw data. We may recall that chapter 7 is a nested narrative in which we are told the story of Thomas Sutpen as he related it to General Compson who told it to Quentin, who is telling it to Shreve. There are so many narrative frames that it is very difficult to determine whose language this is. What is apparent is that the chapter in which most of Sutpen's life is revealed is steeped in pejorative racist language. To be sure, in all the other chapters the word "negro" or "black" is used more frequently to describe African Americans.</p>
 
-				line: { color: 'rgba(0,0,0,1)', width: 1 },
-				opacity: 0.7
-			},
-			hoverinfo: "text",
-		};
+					<h2 class="text_title">Part 2: Corpus Linguistics and <em>Digital Yoknapatawpha</em></h2>
+					<p>Understanding when a certain word is used does not necessarily indicate who is using it. There is currently no way to determine who is speaking in <em>Absalom, Absalom!</em> This is a two-fold issue. Practically, there is no way to match the speaker with the racial terms, because the data is not available at that level of granularity. More philosophically, we may also wonder if anyone's language is truly their own in the text. This is a community that has been shaped by the same story for generations. The cadence, register, and tone all inform particular leitmotifs that occur and reoccur throughout the narrative. Indeed, one of the interesting phenomena that CL reveals is just how often certain turns of phrase are repeated, re-worked, and re-contextualized. The singularity of the speaker is unsettled by the multiplicity of the spoken.</p>
 
-		const bubbleLayout = {
-			title: "Use of Top 5 Racial Words by Chapter <i>Absalom, Absalom!</i>",
-			xaxis: {
-				title: "Chapter",
-				showgrid: false,
-				tickvals: [1,2,3,4,5,6,7,8,9]
-			},
-			yaxis: {
-				title: "",
-				showgrid: false,
-				tickmode: "array",
-				tickvals: [5, 4, 3, 2, 1],
-				ticktext: yLabels.reverse()
-			},
-			legend: {
-				title: { text: "<b>Racial Word</b>" },
-				itemsizing: 'constant'
-			},
-			paper_bgcolor: faulknerChartStyles.paperBackground,
-			plot_bgcolor: faulknerChartStyles.plotBackground,
-			margin: faulknerChartStyles.margin,
-			font: faulknerChartStyles.font
-		};
+					<p>That being said, it is possible to investigate the proximity of racial words relative to characters. The <em>Digital Yoknapatawpha</em> database breaks down a text into events, which are, in turn, composed of locations and characters. By cross-referencing the words with the events, we can get some notion of what words are being used around what characters.<sup id="fn4"><a href="#note4">4</a></sup></p>
 
-		Plotly.newPlot("bubbleChart", [bubbleTrace], bubbleLayout);
-	</script>
-	<script>
+					<div class="h5">Top Race Words and Characters</div>
 
-		const raceData = {
-			character: ["Thomas Sutpen", "Charles Bon", "Judith Sutpen", "Henry Sutpen", "Rosa Coldfield"],
-			black: [40, 9, 25, 15, 24],
-			n_word: [132, 30, 42, 34, 15],
-			negro: [62, 16, 47, 35, 31],
-			blood: [49, 48, 40, 48, 27],
-			white: [58, 31, 38, 37, 18]
-		};
+					<p>While we could count all of the words associated with a character, this is not a relevant statistic. The words that make the most sense are the five most frequent race words discussed in Figure 1. These are: blood, black, negro, n-word, and white. As each character necessarily occurs with each word at a different frequency, the top five characters were selected by the number of appearances in the total number of the events.</p>
+					<div class="chart-container">
+						<div id="raceBarChart" style="width: 90%"></div>
+					</div>
 
-		// Create traces for each word
-		const blackTrace = {
-			x: raceData.character,
-			y: raceData.black,
-			type: 'bar',
-			marker: { color: faulknerChartStyles.colorway[0] },
-			opacity: .9,
-			name: 'Black',
-			hovertemplate: 'Character: %{x}<br>Word: Black<br>Count: %{y}<extra></extra>'			
-		};
+					<div class="figure-caption"><i>Figure 5:</i> The above chart breaks down how frequently the top five racially charged words appear in events with the five major characters. This does not necessarily mean that these characters speak these words.</div>
 
-		const bloodTrace = {
-			x: raceData.character,
-			y: raceData.blood,
-			type: 'bar',
-			name: 'Blood',
-			marker: { color: faulknerChartStyles.colorway[1] },
-			opacity: .9,
-			hovertemplate: 'Character: %{x}<br>Word: Blood<br>Count: %{y}<extra></extra>'
-		};
 
-		const nWordTrace = {
-			x: raceData.character,
-			y: raceData.n_word,
-			type: 'bar',
-			name: 'N-word',
-			marker: { color: faulknerChartStyles.colorway[2] },
-			opacity: .9,
-			hovertemplate: 'Character: %{x}<br>Word: N-word<br>Count: %{y}<extra></extra>'
-		};
+					<p>The resulting chart is quite revealing. Among most of the characters, the ratio of the word negro vs. the n-word is relatively even. The most obvious difference is Thomas Sutpen. In events where he is present or mentioned the n-word occurs 132 times. Part of the reason for this is that Thomas Sutpen occurs in the most events throughout the text - 320 to be exact. Consequently, it makes sense that he has a higher chance of occurring in those events in which there is a particular racial word.</p>
 
-		const negroTrace = {
-			x: raceData.character,
-			y: raceData.negro,
-			type: 'bar',
-			name: 'Negro',
-			marker: { color: faulknerChartStyles.colorway[3] },
-			opacity: .9,
-			hovertemplate: 'Character: %{x}<br>Word: Negro<br>Count: %{y}<extra></extra>'
-		};
+					<p>In order to get a better view into how often a racial word is used in the same event as a character, we need to normalize the data by the number of times the word occurs. This way we can understand, proportionally, how often a character is in an event when a particular word occurs. We know from the previous chart that the n-word occurs 152. Dividing the number of occurrences for each character by this number produces the percentage chart below.</p>
 
+					<div class="chart-container">
+						<div id="nWordCharacterChart" style="width: 90%"></div>
+					</div>
+
+
+					<p>The chart reveals, quite dramatically, that Thomas Sutpen is, in some way, part of the event 87% of the times that the n-word occurs. While it is not clear that he is using the word, it is also clear that he is the character with whom the racial epithet is most associated. Indeed, in one event it occurs 16 times. This is when Sutpen is barred from entering the front door of the plantation by the enslaved butler (187). It is this primal incident that shapes so much of Sutpen's consciousness going forward. Linguistically, it becomes the gravitational center that draws in the worst racial language the American lexicon has to offer. At the moment that he becomes aware of his class difference, he resorts to racial antagonism.</p>
+
+					<div class="h5">Time and Racial Language</div>
+
+					The use of racial language is also time bound. Certain words are more prominent during certain periods than others. The <em>DY</em> data also includes speculative dates for each event. These dates consist of both an earliest possible start date and latest possible end date. Needless to say, establishing Faulkner's chronology is not an exact science and the dates are best seen as an approximate measure. Nevertheless, they do give a general indication around what time the events take place.
+					<div class="chart-container">
+						<div id="raceDateChart" style="width: 90%;"></div>
+					</div>
+
+
+					<p>This chart makes it apparent that the n-word is the most frequently used word in the 1820s, 1830s, 1860s, and 1910s. These are the pivotal episodes in the Sutpen saga: the establishment of a racial enslavement regime, its dissolution during and after the Civil War, and Quentin's retelling of that story in 1910. After Sutpen has established himself in the 1840s and during Reconstruction, the words Black and Negro are used more frequently, albeit only a very few number of times. </p>
+
+					<div class="h5">Mapping Racial Words</div>
+
+					<p>Because the <em>DY</em> database has mapped the approximate location of the different events in Yoknapatawpha it is also possible to view this information spatially as it plays out across the narrative. Any number of data points can be plotted, but as this leads to map crowding, only those words directly related to African Americans were used. The different layers can be enabled and disabled by clicking on the legend.</p>
+					<div class="map-container">
+						<div id="raceMapChart"> </div>
+					</div>
+
+					<p>The map confirms for a third time that much of the most vociferous racial language is related to Sutpen's origin story in Tidewater, Virginia. This is not a dramatic reveal. Scholars have known that this was one of the key incidents of the text. What the linguistic analysis demonstrates is just how much Faulkner concentrated all the racial epithets in this one relatively small slice of text. This word density suggests how deeply this one incident shaped Sutpen.</p>
+
+					<h2 id="part_3" class="text_title">Part 3: Close-reading Chapter 7</h2>
+
+					<p>With so much of the analysis of the n-word occurring in Chapter 7, it makes sense to zoom in on this chapter to get a better sense of how and why the word occurs here so often. There is no way to do so with the data available through <em>DY</em>, because the data need to be grouped thematically. The custom chart below has grouped the events together based on time period and connection between individual events.</p>
+					<div class="chart-container">
+						<div id="chapter7NWordChart"></div>
+					</div>
+
+					<p>It is important to remember that this chapter is actually told by Quentin who is following his grandfather's telling as he heard it from Sutpen. In this framing, certain story content elicits Quentin's use of the n-word, which spikes when he establishes the 1834 storytelling milieu, that is the hunt for the French architect (seen in <span style="color: #81996F;">olive</span>); when he follows Sutpen's story back in time to his childhood residence near Pettibone's Tidewater plantation; and when he describes Wash's interactions with enslaved and free Black people in the environs of Sutpen's land in the 1860s (seen in <span style="color: #e6d812;">gold</span>).</p>
+
+					<p>In each one, we witness a scene of <em>intra</em>racial humiliation wherein a White worker is made to feel subject to a member of the White plantocracy. What comes to represent this White-over-White hierarchy, however, is not the debased White person's own body, but instead the Black body made to stand in for White power. On the road down from the mountains, the first Black person the young Sutpens ever see is that of a tavern bouncer, ejecting their drunken father as if he's a "sack of meal" (182); next is the coachman who commands the young Sutpens out of the road; at Pettibone's threshold it is the butler who tells young Sutpen "never to come to that front door again" (188); in the Mississippi woods, it is the Afro-Haitian hunters who bar the escape of the French-Martinican architect;<sup id="fn5"><a href="#note5">5</a></sup> at the plantation during wartime, where Wash Jones boasted that he was overseeing the enslaved, Black people would "stop him in the road that came up out of the bottom" (226) to explode his illusion with derisive laughter; finally, the Black midwife, who in 1869 is about to deliver a grandchild to Wash (whose Sutpen blood will "dispossess him" <a href="#Faulkner1934"> (Faulkner 1934, 262)</a>), she "order[s] him out" (230) of his own cabin. In all these scenes, it is a Black laborer (bouncer, coachman, butler, hunter, field worker, midwife), in slavery or not far from it, who must act as a boundary marker, keeping underling Whites <em>outside</em> the tavern, great house, or shack; <em>off</em> the high point of the road; or <em>within</em> the edges of property. In these moments, the underling White thinks he hears "terrible [Black] laughing."</p>
+
+					<p>The boy Sutpen, a prototype for these other White subaltern figures, comes to feel that this barrier of laughter, thin as the filament of a balloon, is there to protectively surround the space of the great planter. If one were to strike at the balloon, it would only issue out the laughter, while the thing the balloon surrounded, the "it" of propertied power, would go unharmed.<sup id="fn6"><a href="#note6">6</a></sup></p>
+
+
+
+					<p>Though this seems like a sophisticated reading of the semiotics of race for a thirteen-year-old boy, it also thins out to impossible two-dimensionality the lives of those Black laborers. Put schematically, one could say that Sutpen falls out of a White mountain subsistence economy into racial capitalism, but then misperceives Black labor, in all its forms, as a mere mocking filigree on &mdash; rather than the constitutive base of &mdash; White plantation property. He only reads the working Black body as the livery of White ease, not as that which makes White ease in the first place.</p>
+
+					<p>Relating these scenes, Quentin marks, again and again, instances of White-on-White humiliation by using this White-on-Black slur. But after Wash, in the final scene of the chapter, hears Sutpen mock the shared White 'blood' Wash had so long invested in, Wash finally leaves off abusing Black surrogates and "tech[es]" &mdash; fatally touches and teaches &mdash; Sutpen himself. As Wash's notion of plantocratic honor is "shredded," the need for a false target, by Wash, <em>and</em> by Quentin, disappears. Indeed, unlike his Canadian roommate, Quentin will not utter this slur again as the night wears on.</p>
+
+
+					<h2 id="conclusion" class="text_title">Conclusion</h2>
+					<p><em>Absalom</em> addressed, without yet solving, the problem that James Baldwin handed to White people in an interview in 1963. He said: "Now here in this country we've got something called a n[-word] . . . [I]t doesn't exist in any other country in the world. . . . White people invented him. . . . It had to be something you were afraid of and you invested me with . . . . You still think---I gather---that [this invention] is necessary. Well he is unnecessary to me so he must be necessary to you. I give you your problem back." The linguistic analysis of Faulkner's use of racial language in <em>Absalom, Absalom!</em> is quite striking. It demonstrates that he does not use the n-word casually and indiscriminately. Instead, it serves a specific purpose as a dramatic and thematic marker. The n-word is a way for Sutpen to denigrate the Black body at the very moment of his own sense of powerlessness. It is meant to redirect the class resentment he feels towards White enslavers onto the racialized bodies of the enslaved. Through this act of deflection, Sutpen is able to push to the periphery lingering anxieties about his own "poor white" heritage, and, by extension, his own sense of Whiteness.To borrow Baldwin's insight, Sutpen invokes the n-word as a necessary means of self-preservation, but this, paradoxically, prevents him from ever finding common cause with the enslaved. Therefore, he can never find a way to dismantle the power structure, and he will spend the rest of his life trying to mimic the very society that rejected him.</p>
+
+
+					<div class="works-cited">
+						<div class="h5">Works Cited</div>
+						<ol>
+							<li id="Archer2016">
+								Archer, Dawn. "Data Mining and Word Frequency Analysis." <em>Research Methods for Reading Digital Data in the Digital Humanities</em>, 2016, pp. 72-92.
+							</li>
+							<li id="Carden2013">
+								Carden, Mary Paniccia. “Fatherless Children and Post-Patrilineal Futures in Faulkner’s <em>Absalom, Absalom!</em>.” <em>Studies in American Fiction</em>, vol. 40, no. 2, 2013, pp. 123–145.
+							</li>
+							<li id="Crawford2004">
+								Crawford, Margo Natalie. “Interracial Embodiment and Contradiction.” <em>Signs</em>, vol. 30, no. 1, 2004, pp. 151–176.
+							</li>
+							<li id="Davis1983">
+								Davis, Thadious M. <em>Faulkner’s “Negro”: Art and the Southern Context</em>. Baton Rouge: Louisiana State University Press, 1983.
+							</li>
+							<li id="Faulkner1934">
+								Faulkner, William. 1934. “Wash.” <em>Harpers Magazine</em>, vol. 168 (February).
+							</li>
+							<li id="Faulkner2011">
+								---. 2011. <em>Absalom, Absalom!</em> Vintage International.
+							</li>
+							<li id="Ladd1994">
+								Ladd, Barbara. "The Direction of the Howling: Nationalism and the Color Line in <em>Absalom, Absalom!</em>." <em>American Literature</em>, vol. 66, no. 3, 1994, pp. 525–553.
+							</li>
+							<li id="Snead2017">
+								Snead, James. <em>Figures of Division: William Faulkner’s Major Novels</em>. New York: Methuen, 2017.
+							</li>
+							<li id="Sugimori2008">
+								Sugimori, Mine. "Racial Mixture in <em>Absalom, Absalom!</em>." <em>Faulkner Journal</em>, vol. 23, no. 1, 2008, pp. 45–65.
+							</li>
+							<li id="Sundquist1983">
+								Sundquist, Eric J. <em>Faulkner: The House Divided</em>. Baltimore: Johns Hopkins University Press, 1983.
+							</li>
+						</ol>
+					</div>
+
+
+					<div class="footnotes">
+						<ol>
+							<li id="note1">
+								One of the first and most extensive studies is Eric Sundquist's
+								<a href="#Sundquist1983"><em>Faulkner: The House Divided</em></a>. His early intervention pointed to Faulkner's treatment of miscegenation as central to understanding his work. Barbara Ladd's
+								<a href="#Ladd1994">"The Direction of the Howling": Nationalism and the Color Line in <em>Absalom, Absalom!</em></a> explores how the figure of the creole who passes as white, Charles Bon, represents a fundamental threat to white southerners conception of their own history and possible futures. Another seminal piece is that of Thadious Davis who demonstrates that the narrators each project a different abstraction of
+								<a href="#Davis1983">"The Negro"</a> in order to reconcile their own relationship with the past. Other more recent relevant scholarship includes that of
+								<a href="#Crawford2004">Crawford (2004)</a>,
+								<a href="#Sugimori2008">Sugimori (2008)</a>,
+								<a href="#Carden2013">Carden (2013)</a>, and
+								<a href="#Snead2017">Snead (2017)</a>.
+								<a href="#fn1" class="return-arrow">↩</a>
+							</li>
+							<li id="note2">
+								All of the data was generated in the R programming language using the <code>tidyverse</code> suite of packages for the calculations and the <code>plotly</code> library for the visualizations. The full repository is available at <a href="https://github.com/joostburgers/absalom_sentiment_analysis">https://github.com/joostburgers/absalom_sentiment_analysis</a>. Due to copyright issues the repository does not include the <em>Absalom, Absalom!</em> text file used for data analysis. The text file used for text analysis was the 2011 Vintage Edition [Faulkner, 2011], which corresponds with the 1990 edition we used for <em>DY</em>.
+								<a href="#fn2" class="return-arrow">↩</a>
+							</li>
+							<li id="note3">
+								The steps that follow are standard procedures in CL. The text of <em>Absalom, Absalom!</em> was read in as a txt file. It was then broken into nine chapters, and further sub-setted into sentences. The individual words were subsequently "tokenized." The process of tokenization removes capital letters, special characters, and punctuation. It enables the computer to compare words more easily. Each "stop word" was then removed. These are words like: the, a, on, at, etc. that are very frequent in any text, and do not add to the analysis. The words were then lemmatized. Lemmatization reduces a word to the word stem. For example, "fathers" becomes "father." This way all instances of the concept "father" are unified as one instance. This prevents creating separate counts for words like father, fathers, father's, and fathers'. The resulting slate of words was tagged as racially charged by adding a column called race_word and indicating TRUE or FALSE for each word. This was done by creating a list of racial words and joining it to the data table through a left sided join. Essentially, it checks to see if a word like "Negro", "White", or "Octoroon" occurs and tags it as TRUE. Such a list of racial words is necessarily imperfect as the words "black" and "white" could also denote colors and not racial designations. Still, with this pre-processing complete it is possible to provide some key statistical insights.
+								<a href="#fn3" class="return-arrow">↩</a>
+							</li>
+							<li id="note4">
+								This re-composition process is quite technical and the full process is documented here: <a href="absalom_text_processing_supplement.html"><em>Absalom, Absalom!</em> Text Processing Supplement</a>.
+								<a href="#fn4" class="return-arrow">↩</a>
+							</li>
+							<li id="note5">
+								In a sense, they reenact their anti-French rebellion as a game without positive outcome, for this time it is enacted on behalf of their Anglo-American master.
+								<a href="#fn5" class="return-arrow">↩</a>
+							</li>
+							<li id="note6">
+								Consider the similarity to Ahab's awareness that the face of the whale is not the enraging thing itself, just its "mask" or materialization; regardless, Ahab contends, one has no other choice but to strike through the mask.
+								<a href="#fn6" class="return-arrow">↩</a>
+							</li>
+						</ol>
+					</div>
+				
+			</div>
 		
 
-		const whiteTrace = {
-			x: raceData.character,
-			y: raceData.white,
-			type: 'bar',
-			name: 'White',
-			marker: { color: faulknerChartStyles.colorway[4] },
-			opacity: .9,
-			hovertemplate: 'Character: %{x}<br>Word: White<br>Count: %{y}<extra></extra>'
-		};
+		<footer>
+		</footer>
 
-		const layout_RaceData = {
-			title: "Frequency of Racial Words in Events with Specific Characters",
-			yaxis: { title: 'Count' },
-			xaxis: { title: 'Character' },
-			barmode: 'group',
-			legend: { title: { text: "<b>Racial Word</b>" }, itemsizing: 'constant' },
-			paper_bgcolor: faulknerChartStyles.paperBackground,
-			plot_bgcolor: faulknerChartStyles.plotBackground,
-			margin: faulknerChartStyles.margin,
-			font: faulknerChartStyles.font
-		};
+		</div>
 
-		// Plotly chart
-		Plotly.newPlot('raceBarChart', [blackTrace, bloodTrace, nWordTrace, negroTrace, whiteTrace], layout_RaceData);
+		<script>
 
-	</script>
-	<script>
-		const nWordCharacterData = {
-			character: [
-				"Thomas Sutpen", "Unnamed Twenty Original Sutpen Slaves", "Thomas Sutpen's Father",
-				"Judith Sutpen", "Henry Sutpen", "Charles Bon", "General Compson",
-				"Thomas Sutpen's Sister(1)", "Unnamed Poor Whites in Tidewater",
-				"Unnamed Men Who Hunt Architect"
-			],
-			n_word: [
-				0.87, 0.3, 0.29, 0.28, 0.22, 0.2, 0.2, 0.2, 0.19, 0.18
-			]
-		};
+			function loadTOC() {
+				const headings = $("h2, h3");
 
+				const tocHtml = [];
+				headings.each((i, current) => {
 
-		const trace = {
-			x: nWordCharacterData.n_word,
-			y: nWordCharacterData.character,
-			type: "bar",
-			orientation: "h",
-			opacity: 0.9,
-			hovertemplate: "Percentage: %{x:.0%}<extra></extra>",
-			marker: { color: faulknerChartStyles.colorway[0] }
-		};
+					const tagName = current.tagName.toLowerCase();
+					const title = current.textContent;
+					const anchorName = `tocheading${i}`;
 
-		const layout_nWordCharacterChart = {
-			title: {
-				text: "Ten Most Frequent Characters in Events when the N-word is Used"
+					current.id = anchorName;
 
-			},
-			xaxis: {
-				title: "Percentage of N-word Usage",
-				tickformat: ",.0%"
-			},
-			yaxis: {
-				title: "",
-				automargin: true
-			},
-			paper_bgcolor: faulknerChartStyles.paperBackground,
-			plot_bgcolor: faulknerChartStyles.plotBackground,
-			margin: faulknerChartStyles.margin,
-			font: faulknerChartStyles.font
-		};
+					if (tagName === "h2" || tagName === "h3") {
+						tocHtml.push(`<li class='toc-${tagName}'><a href='#${anchorName}'>${title}</a></li>`);
+					}
+				});
 
-		Plotly.newPlot("nWordCharacterChart", [trace], layout_nWordCharacterChart);
-	</script>
-	<script>
-		const absalomRaceDateData = {
-			roundDate: [1815, 1820, 1825, 1830, 1835, 1840, 1845, 1850, 1855, 1860, 1865, 1870, 1875, 1880, 1885, 1890, 1895, 1900, 1905, 1910],
-			black: [2, 1, 4, 0, 3, 0, 0, 1, 8, 12, 6, 5, 1, 7, 0, 0, 0, 0, 0, 12],
-			negro: [0, 0, 0, 0, 17, 18, 0, 13, 12, 8, 9, 4, 2, 11, 0, 0, 0, 0, 0, 12],
-			n_word: [3, 45, 2, 1, 36, 2, 0, 2, 6, 24, 5, 5, 2, 0, 0, 0, 0, 0, 0, 19],
-			rangeDate: [
-				"", "1815 -", "1820 -", "1825 -", "1830 -", "1835 -", "1840 -", "1845 -",
-				"1850 -", "1855 -", "1860 -", "1865 -", "1870 -", "1875 -", "1880 -",
-				"1885 -", "1890 -", "1895 -", "1900 -", "1905 -"
-			]
-		};
-
-		const traces = [
-			{
-				x: absalomRaceDateData.roundDate,
-				y: absalomRaceDateData.black,
-				type: "scatter",
-				mode: "lines+markers",
-				marker: { color: faulknerChartStyles.colorway[0] },
-				line: { color: faulknerChartStyles.colorway[0] },
-				name: "Black",
-				text: absalomRaceDateData.rangeDate,
-				opacity: 0.4,
-				hovertemplate: "Date Range: %{text} %{x}<br>Word: Black<br>Count: %{y}<extra></extra>"
-			},
-			{
-				x: absalomRaceDateData.roundDate,
-				y: absalomRaceDateData.negro,
-				type: "scatter",
-				mode: "lines+markers",
-				marker: { color: faulknerChartStyles.colorway[1] },
-				line: { color: faulknerChartStyles.colorway[1] },
-				name: "Negro",
-				opacity: 0.4,
-				hovertemplate: "Date Range: %{text} %{x}<br>Word: Negro<br>Count: %{y}<extra></extra>"
-			},
-			{
-				x: absalomRaceDateData.roundDate,
-				y: absalomRaceDateData.n_word,
-				type: "scatter",
-				mode: "lines+markers",
-				name: "N-word",
-				marker: { color: faulknerChartStyles.colorway[2] },
-				line: { color: faulknerChartStyles.colorway[2] },
-				opacity: 0.9,
-				hovertemplate: "Date Range: %{text} %{x}<br>Word: N-word<br>Count: %{y}<extra></extra>"
+				// assuming you already have an element in your HTML with id "toc-container"
+				$("#TableOfContents").html(`<ul class="toc-list">${tocHtml.join("")}</ul>`);
 			}
-		];
-
-		const layout_absalomRaceDateChart = {
-			title: {
-				text: "Frequency of Race Words over Time"
-
-			},
-			xaxis: {
-				title: "Year",
-				tickmode: "array",
-				tickvals: absalomRaceDateData.roundDate,
-				ticktext: absalomRaceDateData.roundDate,
-				showgrid: false
-			},
-			yaxis: {
-				title: "Count of Word"
-			},
-			legend: {
-				title: { text: "<b>Racial Word</b>" }
-			},
-			paper_bgcolor: faulknerChartStyles.paperBackground,
-			plot_bgcolor: faulknerChartStyles.plotBackground,
-			margin: faulknerChartStyles.margin,
-			font: faulknerChartStyles.font
-		};
-
-		Plotly.newPlot("absalomRaceDateChart", traces, layout_absalomRaceDateChart);
-	</script>
 
 
-	<script>
-
-		const absalomRaceMapData = {
-			x: [1887, 153, 153, 153, 653, 1939, 658, 185, 1077, 607, 635, 693, 462, 185, 635, 1695, 152, 1696, 658, 1695, 298, 693, 136, 1696, 658, 1742, 130, 185, 1723, 1867, 1847, 635, 693, 658, 578, 330, 1695, 389, 1723, 1723, 1867, 298, 1847, 653, 136, 688, 688, 1939, 658, 578, 1742, 389, 152, 281, 188, 188, 1887],
-			y: [-922, -193, -193, -193, -209, -831, -819, -173, -121, -763, -851, -894, -657, -173, -851, -556, -246, -1348, -819, -556, -345, -894, -117, -1348, -819, -972, -193, -173, -308, -919, -965, -851, -894, -790, -794, -202, -556, -555, -308, -308, -919, -345, -965, -209, -117, -837, -837, -831, -790, -794, -972, -555, -246, -207, -255, -255, -922],
-			raceWords: ["N-word", "Negro", "N-word", "Black", "N-word", "N-word", "Negro", "Negro", "N-word", "Negro", "Black", "Negro", "Negro", "N-word", "Negro", "Black", "Negro", "Black", "Black", "N-word", "Negro", "N-word", "N-word", "N-word", "N-word", "Negro", "N-word", "N-word", "N-word", "N-word", "Negro", "Black", "Negro", "Negro", "N-word", "Black", "Black", "Negro", "Black", "Black", "Negro", "Negro", "Black", "Negro", "N-word", "Black", "Black", "Black", "N-word", "Black", "N-word", "Black", "Black", "Negro", "Black"],
-			value: [45, 38, 37, 23, 10, 10, 9, 9, 9, 8, 7, 7, 7, 6, 5, 5, 5, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-			locationTitles: ["Tidewater Virginia", "Sutpen Plantation", "Sutpen Plantation", "Sutpen Plantation", "Downed Log in Woods", "Harvard University", "Jefferson Courthouse and Square", "Sutpen Plantation Stable", "Tallahatchie River Bottom", "Jefferson Methodist Church", "Coldfield House", "Compson Place", "Episcopal Church in the County", "Sutpen Plantation Stable", "Coldfield House", "New Orleans, Louisiana", "Sutpen Plantation Gate", "Haiti", "Jefferson Courthouse and Square", "New Orleans, Louisiana", "Cabin near Sutpen's Hundred", "Compson Place", "Fishing Camp|Hunting Camp", "Haiti", "Jefferson Courthouse and Square", "Mississippi River", "Sutpen Plantation Gardens", "Sutpen Plantation Stable", "University of Mississippi, Oxford", "Virginia", "Carolina in the Civil War", "Coldfield House", "Compson Place", "Holston House", "Jefferson Negro Store District", "Midwife|Dicey's Cabin", "New Orleans, Louisiana", "Northwest Road|Jefferson to Memphis", "University of Mississippi, Oxford", "University of Mississippi, Oxford", "Virginia", "Cabin near Sutpen's Hundred", "Carolina in the Civil War", "Downed Log in Woods", "Fishing Camp|Hunting Camp", "General Compson's|Mr. Compson's Office", "General Compson's|Mr. Compson's Office", "Harvard University", "Holston House", "Jefferson Negro Store District", "Mississippi River", "Northwest Road|Jefferson to Memphis", "Sutpen Plantation Gate", "Sutpen Plantation Graveyard", "Sutpen's Store", "Sutpen's Store", "Tidewater Virginia"]
-		};
-
-		const createTrace = (raceWord, color) => {
-			return {
-				x: absalomRaceMapData.x.filter((_, i) => absalomRaceMapData.raceWords[i] === raceWord),
-				y: absalomRaceMapData.y.filter((_, i) => absalomRaceMapData.raceWords[i] === raceWord),
-				text: absalomRaceMapData.locationTitles
-					.filter((_, i) => absalomRaceMapData.raceWords[i] === raceWord)
-					.map((title, i) => `Racial Word: ${raceWord} <br>Location: ${title}<br>Count: ${absalomRaceMapData.value[i]}`),
-				type: "scatter",
-				mode: "markers",
-				marker: {
-					size: absalomRaceMapData.value.filter((_, i) => absalomRaceMapData.raceWords[i] === raceWord).map(v => v * 1.7),
-					sizemode: "diameter",
-					opacity: 0.5,
-					line: { width: 1, color: "white" },
-					color: color
-				},
-				name: raceWord,
-				hovertemplate: "%{text}<extra></extra>"
-			};
-		};
-
-
-		const traceNWord = createTrace("N-word", faulknerChartStyles.colorway[0]);
-		const traceNegro = createTrace("Negro", faulknerChartStyles.colorway[2]);
-		const traceBlack = createTrace("Black", faulknerChartStyles[3]);
-
-
-
-
-		const layout_raceMap = {
-			title: {
-				text: "Locations of Racial Words in <i>Absalom, Absalom!</i>",
-
-			},
-			xaxis: {
-				visible: false,
-				range: [0, 2008],
-				fixedrange: true
-			},
-			yaxis: {
-				visible: false,
-				range: [-1660, 0],
-				fixedrange: true
-			},
-			images: [
-				{
-					source: "https://raw.githubusercontent.com/joostburgers/absalom_sentiment_analysis/master/images/dy_base_layer_4_2.png",
-					xref: "x",
-					yref: "y",
-					x: 25,
-					y: -40,
-					sizex: 2008,
-					sizey: 1660,
-					opacity: 0.8,
-					layer: "below"
-				}
-			],
-			margin: faulknerChartStyles.margin,
-			font: faulknerChartStyles.font,
-			legend: {
-				title: { text: "<b>Racial Word</b>" },
-				itemsizing: "constant",
-
-			},
-			hoverlabel: {
-				font: {
-					family: faulknerChartStyles.font.family,
-					size: 10
-				}
-			},
-			autosize: false,
-			width: 768,
-			height: 605
-		};
-
-		Plotly.newPlot("absalomRaceMapChart", [traceNWord, traceNegro, traceBlack], layout_raceMap);
-
-
-	</script>
-
-
-	<script>
-		const nwordChapter7Data = {
-			page: [2, 3, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 34, 35, 38, 48, 49, 52, 53],
-			event: [
-				"1834 MS Hunt", "1834 MS Hunt", "1817 - 1820 Tidewater", "1817 - 1820 Tidewater", "1817 - 1820 Tidewater",
-				"1817 - 1820 Tidewater", "1817 - 1820 Tidewater", "1818 Tidewater Door", "1818 Tidewater Door", "1818 Tidewater Door", "1818 Tidewater Door After",
-				"1818 Tidewater Door After", "1834 MS Hunt", "1834 MS Hunt", "1834 MS Hunt", "1834 MS Hunt", "1834 MS Hunt", "1834 MS Hunt", "1823 - 1831 Haiti", "1823 - 1831 Haiti",
-				"1823 - 1831 Haiti", "1834 MS Hunt", "1831 -1832 Sutpen's Hundred", "1910 Harvard - Shreve", "1834 MS Hunt", "1834 MS Hunt", "1831 -1832 Sutpen's Hundred", "1831 -1832 Sutpen's Hundred",
-				"1831 -1832 Sutpen's Hundred", "1831 -1832 Sutpen's Hundred", "1831 -1832 Sutpen's Hundred", "1861 Wash on road during war", "1861 Wash on road during war", "1869 Wash's Cabin birth scene",
-				"1869 Wash's Cabin birth scene"
-			],
-			n_word: [13, 13, 26, 26, 26, 26, 26, 12, 12, 12, 8, 8, 3, 3, 9, 9, 9, 9, 1, 1, 1, 1, 2, 1, 7, 7, 3, 3, 2, 2, 2, 9, 9, 4, 4],
-			theme: [
-				"1834 MS Hunt", "1834 MS Hunt", "1817 - 1820 Tidewater", "1817 - 1820 Tidewater", "1817 - 1820 Tidewater", "1817 - 1820 Tidewater", "1817 - 1820 Tidewater",
-				"1818 Tidewater Door", "1818 Tidewater Door", "1818 Tidewater Door", "1818 Tidewater Door After", "1818 Tidewater Door After", "1834 MS Hunt", "1834 MS Hunt", "1834 MS Hunt",
-				"1834 MS Hunt", "1834 MS Hunt", "1834 MS Hunt", "1823 - 1831 Haiti", "1823 - 1831 Haiti", "1823 - 1831 Haiti", "1834 MS Hunt", "1831 -1832 Sutpen's Hundred", "1910 Harvard - Shreve",
-				"1834 MS Hunt", "1834 MS Hunt", "1831 -1832 Sutpen's Hundred", "1831 -1832 Sutpen's Hundred", "1831 -1832 Sutpen's Hundred", "1831 -1832 Sutpen's Hundred", "1831 -1832 Sutpen's Hundred",
-				"1861 - 1869 Wash", "1861 - 1869 Wash", "1861 - 1869 Wash", "1861 - 1869 Wash"
-			],
-			label: [
-				"1910 Harvard - Quentin", "1834 MS Hunt", "", "1808 - 1817 Mountain", "",
-				"1817 - 1820 Tidewater", "", "", "", "", "1818 Tidewater Door", "", "",
-				"1818 Tidewater Door After", "", "1834 MS Hunt", "", "1819 Tidewater schoolhouse",
-				"1834 MS Hunt", "", "", "", "1823 - 1831 Haiti", "", "", "1834 MS Hunt",
-				"1831 -1832 Sutpen's Hundred", "1910 Harvard - Shreve", "1834 MS Hunt", "",
-				"1831 -1832 Sutpen's Hundred", "", "1910 Harvard - Quentin",
-				"1831 -1832 Sutpen's Hundred", "", "1831 - Haiti (Charles Bon born)", "",
-				"1831 -1832 Sutpen's Hundred", "1861 - 1864 Civil War", "", "", "", "", "",
-				"1866 Sutpen's Hundred Post-war", "", "", "1861 Wash on road during war", "",
-				"1867 Sutpen's General Store", "", "1869 Wash's Cabin birth scene", "",
-				"1869 Wash's Cabin death scene", "", "", ""
-			],
-			label_page: [
-				1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-				21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
-				39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57
-			]
-		};
-
-		// Map themes to colors
-		const themeColors = {
-			"1834 MS Hunt": "#81996F",
-			"1817 - 1820 Tidewater": "#132C53",
-			"1818 Tidewater Door": "#ae0700",
-			"1818 Tidewater Door After": "#c8491d",
-			"1823 - 1831 Haiti": "#bf6069",
-			"1831 -1832 Sutpen's Hundred": "#908392",
-			"1861 - 1869 Wash": "#d5d231",
-			"1910 Harvard - Shreve": "#428196"
-		};
-
-		// Get unique themes
-		const uniqueThemes = [...new Set(nwordChapter7Data.theme)];
-
-		// Create separate traces for each theme
-		const traces_chapter7 = uniqueThemes.map(theme => {
-			const indices = nwordChapter7Data.theme
-				.map((t, i) => (t === theme ? i : -1))
-				.filter(i => i !== -1);
-
-			return {
-				x: indices.map(i => nwordChapter7Data.page[i]),
-				y: indices.map(i => nwordChapter7Data.n_word[i]),
-				type: "bar",
-				name: theme, // Theme name appears in the legend
-				marker: { color: themeColors[theme] || themeColors.default },
-				hovertemplate: `<b>Theme:</b> ${theme}<br>` +
-					
-					`<b>Count:</b> %{y}<extra></extra>`, // Custom hovertemplate
-			};
-		});
-
-		const layoutChapter7 = {
-			title: "Use of N-word Across Chapter 7",
-			xaxis: {
-				tickmode: "array",
-				tickvals: nwordChapter7Data.label_page,
-				ticktext: nwordChapter7Data.label,
-				title: { text: "Event" },
-				fixedrange: true,
-				range: [0, 55]
-			},
-			yaxis: {
-				title: "Count",
-			},
-			barmode: "group", // Use "stack" or "group" for different bar modes
-			bargap: 0,
-			autosize: true,
-			width: 1100,
-			height: 600,
-			paper_bgcolor: faulknerChartStyles.paper_bgcolor,
-			plot_bgcolor: faulknerChartStyles.plot_bgcolor,
-			margin: { l: 50, r: 50, t: 50, b: 300, pad: 10 },
-			font: faulknerChartStyles.font,
-		};
-
-		Plotly.newPlot("chapter7NWordChart", traces_chapter7, layoutChapter7);
-	</script>
-
+			$(document).ready(function () {
+				loadTOC()
+				wordFrequencyChart()
+				bigramChart()
+				speakerChart()
+				bubbleChart()
+				raceBarChart()
+				nWordCharacterChart()
+				raceDateChart()
+				nWordCharacterChart()
+				raceMapChart()
+				chapter7nwordChart()
+			});
+		</script>
 
 </body>
+
 </html>
