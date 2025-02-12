@@ -40,7 +40,15 @@ function wordFrequencyChart() {
         margin: { l: 75, r: 50, b: 125, t: 50, pad: 4 }
     };
 
-    Plotly.newPlot("wordFrequencyChart", [nonraceTrace, raceTrace], layoutFrequencyChart)
+    const configFrequencyChart = {
+        ...defaultConfig,
+        toImageButtonOptions: {
+            ...defaultConfig.toImageButtonOptions,
+            filename: layoutFrequencyChart.title.text.replace(/\s+/g, '_').toLowerCase()
+        }
+    }
+   
+    Plotly.newPlot("wordFrequencyChart", [nonraceTrace, raceTrace], layoutFrequencyChart, configFrequencyChart)
 }
 
 function bigramChart() {
@@ -63,7 +71,7 @@ function bigramChart() {
         hovertemplate: 'Count: %{x}<extra></extra>'
     };
 
-    const bigramLayout = {
+    const layoutBigram = {
         template: faulknerLayoutTemplate,
         title: {
             text: "Fifteen Most Frequent Race Bigrams"
@@ -74,7 +82,15 @@ function bigramChart() {
         margin: { l: 150, r: 50, b: 100, t: 50, pad: 4 }
     };
 
-    Plotly.newPlot("bigramChart", [bigramTrace], bigramLayout);
+    const configBigram = {
+        ...defaultConfig,
+        toImageButtonOptions: {
+            ...defaultConfig.toImageButtonOptions,
+            filename: layoutBigram.title.text.replace(/\s+/g, '_').toLowerCase()
+        }
+    }
+
+    Plotly.newPlot("bigramChart", [bigramTrace], layoutBigram, configBigram);
 }
 
 
@@ -90,6 +106,7 @@ function speakerChart() {
         y: speakerData.wild_n_word,
         type: "bar",
         name: "Wild N-word",
+        opacity: 0.9,
         marker: { color: faulknerChartStyles.colorway[0] },
         hovertemplate: 'Speaker: %{x}<br>Count: %{y}<extra></extra>'
     };
@@ -99,11 +116,12 @@ function speakerChart() {
         y: speakerData.wild_negro,
         type: "bar",
         name: "Wild Negro",
+        opacity: 0.9,
         marker: { color: faulknerChartStyles.colorway[1] },
         hovertemplate: 'Speaker: %{x}<br>Count: %{y}<extra></extra>'
     };
 
-    const speakerLayout = {
+    const layoutSpeaker = {
         template: faulknerLayoutTemplate,
         title: {
             text: "Use of 'Wild N-word' and 'Wild Negro' by Speaker"
@@ -114,7 +132,17 @@ function speakerChart() {
        
     };
 
-    Plotly.newPlot("speakerChart", [wild_n_wordTrace, wildNegroTrace], speakerLayout);
+
+    const configSpeaker = {
+        ...defaultConfig,
+        toImageButtonOptions: {
+            ...defaultConfig.toImageButtonOptions,
+            filename: layoutSpeaker.title.text.replace(/\s+/g, '_').toLowerCase()
+        }
+    }
+
+
+    Plotly.newPlot("speakerChart", [wild_n_wordTrace, wildNegroTrace], layoutSpeaker, configSpeaker);
 }
 
 function bubbleChart() {
@@ -160,12 +188,12 @@ function bubbleChart() {
             color: bubbleColors,
 
             line: { color: 'rgba(0,0,0,1)', width: 1 },
-            opacity: 0.5
+            opacity: 0.6
         },
         hoverinfo: "text",
     };
 
-    const bubbleLayout = {
+    const layoutBubble = {
         template: faulknerLayoutTemplate,
         title: {
             text: "Use of Top 5 Racial Words by Chapter <i>Absalom, Absalom!</i>"
@@ -182,13 +210,19 @@ function bubbleChart() {
             tickvals: [5, 4, 3, 2, 1],
             ticktext: yLabels.reverse()
         },
-        legend: {
-            title: { text: "<b>Racial Word</b>" },
-            itemsizing: 'constant'
-        }
+		showlegend: false
     };
 
-    Plotly.newPlot("bubbleChart", [bubbleTrace], bubbleLayout);
+    const configBubble = {
+        ...defaultConfig,
+        toImageButtonOptions: {
+            ...defaultConfig.toImageButtonOptions,
+            filename: layoutBubble.title.text.replace(/\s+/g, '_').toLowerCase()
+        }
+    }
+
+
+    Plotly.newPlot("bubbleChart", [bubbleTrace], layoutBubble, configBubble);
 
 }
 
@@ -269,8 +303,18 @@ function raceBarChart() {
         font: faulknerChartStyles.font
     };
 
+
+    const configRaceBarChart = {
+        ...defaultConfig,
+        toImageButtonOptions: {
+            ...defaultConfig.toImageButtonOptions,
+            filename: layoutRaceBarChart.title.text.replace(/\s+/g, '_').toLowerCase()
+        }
+    }
+
+
     // Plotly chart
-    Plotly.newPlot('raceBarChart', [blackTrace, bloodTrace, nWordTrace, negroTrace, whiteTrace], layoutRaceBarChart);
+    Plotly.newPlot('raceBarChart', [blackTrace, bloodTrace, nWordTrace, negroTrace, whiteTrace], layoutRaceBarChart, configRaceBarChart);
 
 }
 
@@ -312,10 +356,19 @@ function nWordCharacterChart() {
         yaxis: {
             title: "",
             automargin: true
-        }        
+        },
+		showlegend: false,
     };
 
-    Plotly.newPlot("nWordCharacterChart", [trace], layoutnWordCharacterChart);
+    const confignWordCharacterChart = {
+        ...defaultConfig,
+        toImageButtonOptions: {
+            ...defaultConfig.toImageButtonOptions,
+            filename: layoutnWordCharacterChart.title.text.replace(/\s+/g, '_').toLowerCase()
+        }
+    }
+
+    Plotly.newPlot("nWordCharacterChart", [trace], layoutnWordCharacterChart, confignWordCharacterChart);
 }
  
 
@@ -390,9 +443,19 @@ function raceDateChart() {
 			title: { text: "<b>Racial Word</b>" }
 		},
 
-	};
+    };
 
-	Plotly.newPlot("raceDateChart", traces, layoutRaceDateChart);
+
+    const configRaceDateChart = {
+        ...defaultConfig,
+        toImageButtonOptions: {
+            ...defaultConfig.toImageButtonOptions,
+            filename: layoutRaceDateChart.title.text.replace(/\s+/g, '_').toLowerCase()
+        }
+    }
+
+
+    Plotly.newPlot("raceDateChart", traces, layoutRaceDateChart, configRaceDateChart);
 
 }
 
@@ -430,12 +493,12 @@ function raceMapChart() {
 
     const traceNWord = createTrace("N-word", faulknerChartStyles.colorway[0]);
     const traceNegro = createTrace("Negro", faulknerChartStyles.colorway[2]);
-    const traceBlack = createTrace("Black", faulknerChartStyles[3]);
+    const traceBlack = createTrace("Black", faulknerChartStyles.colorway[3]);
 
 
 
 
-    const layoutraceMap = {
+    const layoutRaceMap = {
        template: faulknerLayoutTemplate,
         title: {
             text: "Locations of Racial Words in <i>Absalom, Absalom!</i>",
@@ -480,7 +543,21 @@ function raceMapChart() {
         height: 605
     };
 
-    Plotly.newPlot("raceMapChart", [traceNWord, traceNegro, traceBlack], layoutraceMap);
+
+    const configRaceMap = {
+        displayModeBar: true,
+        modeBarButtonsToRemove: [],
+        modeBarButtonsToAdd: ['zoomIn2d', 'zoomOut2d', 'autoScale2d', 'resetScale2d'],
+
+        displaylogo: false,
+        responsive: true,
+        toImageButtonOptions: {
+        
+            filename: layoutRaceMap.title.text.replace(/\s+/g, '_').toLowerCase()
+        }
+    }
+
+    Plotly.newPlot("raceMapChart", [traceNWord, traceNegro, traceBlack], layoutRaceMap, configRaceMap);
 }
 
 
@@ -527,18 +604,16 @@ function chapter7nwordChart() {
 
 
 
-
-	// Map themes to colors
-	const themeColors = {
-		"1834 MS Hunt": "#81996F",
-		"1817 - 1820 Tidewater": "#132C53",
-		"1818 Tidewater Door": "#ae0700",
-		"1818 Tidewater Door After": "#c8491d",
-		"1823 - 1831 Haiti": "#bf6069",
-		"1831 -1832 Sutpen's Hundred": "#908392",
-		"1861 - 1869 Wash": "#d5d231",
-		"1910 Harvard - Shreve": "#428196"
-	};
+    const themeColors = {
+        "1834 MS Hunt": "#64A664",  // Saturated Green
+        "1817 - 1820 Tidewater": "#1E3A66",  // Deep Blue
+        "1818 Tidewater Door": "#C81B1B",  // Vibrant Deep Red
+        "1818 Tidewater Door After": "#E5721A",  // Warm Orange
+        "1823 - 1831 Haiti": "#863B69",  // Rich Maroon
+        "1831 - 1832 Sutpen's Hundred": "#5DA8C4",  // Muted Cyan
+        "1861 - 1869 Wash": "#C4BA0D",  // Softer Gold-Yellow
+        "1910 Harvard - Shreve": "#2F635D"  // Dark Teal
+    };
 
 	// Get unique themes
 	const uniqueThemes = [...new Set(nwordChapter7Data.theme)];
@@ -554,6 +629,7 @@ function chapter7nwordChart() {
 			x: indices.map(i => nwordChapter7Data.n_word[i]),
             orientation:"h",
             type: "bar",
+            opacity: 0.9,
 			name: theme, // Theme name appears in the legend
 			marker: { color: themeColors[theme] || themeColors.default },
 			hovertemplate: `<b>Theme:</b> ${theme}<br>` +
@@ -587,7 +663,17 @@ function chapter7nwordChart() {
 		
 		margin: { l: 300, r: 50, t: 50, b: 100, pad: 10 },
 		
-	};
+    };
 
-	Plotly.newPlot("chapter7NWordChart", traces_chapter7, layoutChapter7);
+    const configChapter7 = {
+        ...defaultConfig,
+        toImageButtonOptions: {
+            ...defaultConfig.toImageButtonOptions,
+            filename: layoutChapter7.title.text.replace(/\s+/g, '_').toLowerCase()
+        }
+    }
+
+
+
+    Plotly.newPlot("chapter7NWordChart", traces_chapter7, layoutChapter7, configChapter7);
 }

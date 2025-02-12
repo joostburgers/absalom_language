@@ -817,4 +817,10 @@ div.google-slides-container iframe {
 	ol > li, ul {
 		page-break-inside: avoid;
 	}
+
+	.chart-container {
+		break-inside: avoid;
+	
+	page-break-inside:avoid;
+	}
 }
