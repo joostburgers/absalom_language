@@ -36,8 +36,8 @@ function wordFrequencyChart() {
             text:"Ten Most Frequent Non-Racial and Racial Words"},
         
         xaxis: { title: "Word Stem" },
-        yaxis: { title: "Number of Words" }
-        
+        yaxis: { title: "Number of Words" },
+        margin: { l: 75, r: 50, b: 125, t: 50, pad: 4 }
     };
 
     Plotly.newPlot("wordFrequencyChart", [nonraceTrace, raceTrace], layoutFrequencyChart)
@@ -525,6 +525,9 @@ function chapter7nwordChart() {
 		]
 	};
 
+
+
+
 	// Map themes to colors
 	const themeColors = {
 		"1834 MS Hunt": "#81996F",
@@ -547,14 +550,15 @@ function chapter7nwordChart() {
 			.filter(i => i !== -1);
 
 		return {
-			x: indices.map(i => nwordChapter7Data.page[i]),
-			y: indices.map(i => nwordChapter7Data.n_word[i]),
-			type: "bar",
+			y: indices.map(i => nwordChapter7Data.page[i]),
+			x: indices.map(i => nwordChapter7Data.n_word[i]),
+            orientation:"h",
+            type: "bar",
 			name: theme, // Theme name appears in the legend
 			marker: { color: themeColors[theme] || themeColors.default },
 			hovertemplate: `<b>Theme:</b> ${theme}<br>` +
 
-				`<b>Count:</b> %{y}<extra></extra>`, // Custom hovertemplate
+				`<b>Count: </b> %{x}<extra></extra>`, // Custom hovertemplate
 		};
 	});
 
@@ -563,24 +567,25 @@ function chapter7nwordChart() {
         title: {
             text: "Use of N-word Across Chapter 7"
         },
-		xaxis: {
+		yaxis: {
 			tickmode: "array",
 			tickvals: nwordChapter7Data.label_page,
 			ticktext: nwordChapter7Data.label,
 			title: { text: "Event" },
 			fixedrange: true,
-			range: [0, 55]
+            range: [55, 0],
+			
 		},
-		yaxis: {
+		xaxis: {
 			title: "Count",
 		},
 		barmode: "group", // Use "stack" or "group" for different bar modes
 		bargap: 0,
 		autosize: true,
-		width: 1100,
-		height: 600,
+		//width: 1100,
+		height: 800,
 		
-		margin: { l: 50, r: 50, t: 50, b: 300, pad: 10 },
+		margin: { l: 300, r: 50, t: 50, b: 100, pad: 10 },
 		
 	};
 

@@ -1,6 +1,11 @@
 ﻿
 
 /* Base styles for mobile devices */
+
+html {
+	scroll-behavior: smooth;
+}
+
 .container {
 	display: block;
 	width: 100%;
@@ -21,20 +26,27 @@
 }
 
 .toc-h2, .toc-h3 {
-	padding-left: 0;
+	
 	list-style-type: none;
 }
 
 .toc-h2 {
+	padding-left: 0;
 	margin-top: 5px;
 	font-family: Geneva, Helvetica, Arial, sans-serif;
 	font-weight: 600;
 }
 
-.toc-h3 a {
-	color: #474646;
+.toc-h3 {
 	padding-left: 10px;
+	
 }
+
+	.toc-h3 a {
+		padding-left: 0px;
+		text-decoration: none;
+		color: #474646;
+	}
 
 
 .row .col-4,
@@ -131,6 +143,21 @@
 	margin: 0px 0px 0px 0px;
 }
 
+.activity-title-blank {
+	padding: 15px;
+	font-weight: 400;
+	font-size: 1.25em;
+	margin: 0px 0px 0px 0px;
+}
+
+h4.activity-title-blank {
+	padding: 15px 0px 10px 0px;
+	font-weight: 400;
+	font-size: 1.25em;
+	margin: 0px 0px 0px 0px;
+}
+
+
 .activity-subtitle {
 	font-size: 1.1em;
 	font-weight: 400;
@@ -170,7 +197,7 @@
 	--list-line-height: 1.5em;
 }
 
-ol.activity-list, ol.activity-list-alpha, .activity-list-unordered, .activity-list-unordered-blank, .activity-list-unordered-note {
+ol.activity-list, ol.activity-list-note, ol.activity-list-citation, ol.activity-list-alpha, .activity-list-unordered, .activity-list-unordered-blank, .activity-list-unordered-note {
 	margin-left: var(--list-margin-left);
 	padding: var(--list-padding);
 	font-weight: var(--list-font-weight);
@@ -199,6 +226,27 @@ ol.activity-list-alpha {
 .activity-list li:before {
 	content: counters(item ". ") ". ";
 	display: inline-block;
+}
+
+ol.activity-list-citation {
+	list-style-type: none; /* Removes default numbering */
+	
+}
+
+.activity-list-citation li {
+	position: relative;
+	padding-left: 1rem; /* Creates space for numbers */
+	text-indent: -2rem; /* Hanging indent effect */
+	margin-bottom: .5rem; /* Adds spacing between entries */
+}
+
+	.activity-list-citation li:before {
+		
+	}
+
+
+.activity-list-note {
+	font-size: .9rem;
 }
 
 .activity-list-unordered {
@@ -252,6 +300,46 @@ ol.activity-list-alpha {
 	padding: 15px;
 }
 
+.activity-quote-epigraph {
+	position: relative;
+	background: #f9f9f9;
+	border-left: 3px solid #34584d;
+	padding: 10px 25px;
+	color: #333;
+	margin: 40px 20px;
+	border-radius: 3px;
+}
+
+.activity-quote-epigraph p {
+	margin-bottom: 10px;
+	font-size: 1.2rem;
+}
+
+.activity-quote-full {
+	position: relative;
+	/*background: #f9f9f9;
+	border-left: 3px solid #34584d;
+	*/padding: 10px 25px;
+	color: #333;
+	margin: 20px 30px;
+	/*border-radius: 3px;*/
+}
+
+	.activity-quote-full p {
+		margin-bottom: 0px;
+		font-size: 1.2rem;
+		text-align:justify;
+	}
+
+
+.activity-quote-epigraph-footer {
+	font-size: 1rem;
+	font-style: normal;
+	color: #555;
+	text-align: right;
+	margin-top: 10px;
+}
+
 .activity-image {
 	margin: 15px;
 }
@@ -275,6 +363,9 @@ ol.activity-list-alpha {
 	font-size: 80%;
 	color: rgba(0,0,0,0.8);
 }
+
+
+
 
 .activity-resource-list {
 	list-style-type: circle;
