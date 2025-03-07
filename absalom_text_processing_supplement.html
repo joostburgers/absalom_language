@@ -95,7 +95,7 @@
 			}
 	</style>
 
-	</style>
+	
 
 </head>
 
@@ -285,8 +285,8 @@
 							</p>
 
 							<div class="sourceCode">
-								<pre><code>absalom_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">read_file</span>(<span class="st">&quot;absalom_cleaned_to_match_4_30_rev4.txt&quot;</span>))</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(absalom_df) <span class="ot">&lt;-</span> <span class="st">&quot;text&quot;</span> </span></code></pre>
+								<pre><code>absalom_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">read_file</span>(<span class="st">&quot;absalom_cleaned_to_match_4_30_rev4.txt&quot;</span>))
+<span><span class="fu">colnames</span>(absalom_df) <span class="ot">&lt;-</span> <span class="st">&quot;text&quot;</span> </span></code></pre>
 							</div>
 
 							<p> Import the full text of <em>absalom</em> as a dataframe</p>
@@ -297,15 +297,14 @@
 						<div class="activity-instructions">
 						<p>Any digital copy of text will need to be standardized. The procedure below normalizes the text so the characters like quote marks.</p>
 								
-								<div class="sourceCode" id="cb3">
-									<pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>absalom_tidy_string <span class="ot">&lt;-</span> absalom_df <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">text =</span> <span class="fu">gsub</span>(<span class="st">&quot;[‘’]&quot;</span>, <span class="st">&quot;&#39;&quot;</span>, text)) <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(text, text) <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">text =</span> <span class="fu">str_c</span>(text, <span class="at">collapse =</span> <span class="st">&quot; &quot;</span>))</span></code></pre>
+								<div class="sourceCode">
+									<pre><code><span>absalom_tidy_string <span class="ot">&lt;-</span> absalom_df <span class="sc">%&gt;%</span></span>
+  <span class="fu">mutate</span>(<span class="at">text =</span> <span class="fu">gsub</span>(<span class="st">&quot;[‘’]&quot;</span>, <span class="st">&quot;&#39;&quot;</span>, text)) <span class="sc">%&gt;%</span>
+<span>  <span class="fu">unnest_tokens</span>(text, text) <span class="sc">%&gt;%</span></span>
+<span>  <span class="fu">summarize</span>(<span class="at">text =</span> <span class="fu">str_c</span>(text, <span class="at">collapse =</span> <span class="st">&quot; &quot;</span>))</span></code></pre>
 								</div>
 								<p>This cleaning process removes any curly quotes and standardizes the text. It then tokenizes the text into individual words using the <code>unnest_tokens</code> function. When doing this the unnest_token functions standardizes and cleans all the words of special characters. Finally, it collapses the text back into a single string.</p>
-
-							</div>
+								</div>
 
 
 
@@ -314,7 +313,7 @@
 								<p>
 									The absalom_events data frame is read in from the CSV <code>`absalom_sentences_export_4_30_v2.csv`</code> This is a custom CSV created after the data extraction from the Drupal database. It is a shorter version of the fully joined data table, and substitutes the `First word` string for the columns `begin_word` and `end_word`. The `end_word` is merely the `begin_word` moved up by an index of one. Thus, a begin and end of a search string is created. This table had to be scrubbed manually for minor errors.
 								</p>
-								<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>absalom_events <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;absalom_sentences_export_4_30_v2.csv&quot;</span>)</span></code></pre></div>
+								<div class="sourceCode"><pre><code><span>absalom_events <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;absalom_sentences_export_4_30_v2.csv&quot;</span>)</span></code></pre></div>
 							</div>
 
 						</div>
@@ -330,24 +329,24 @@
 							<p>
 								The process for recomposing the text is involved. The procedure here works because both the data table and the original text had to manually cleaned. As this cleaning and aligning is part and parcel to CL more broadly the specific steps have been left out. Tidy the <code>begin_word</code> vector by unnesting it into individual words. In the <code>tidytext</code> package, unnesting removes white spaces, punctuation, and special characters. The only special character that might remain is the curly quote [‘’]. These have a tendency to distort the matching and have been replaced with straight quotes [']. Once all the words are clean, they are collapsed back into sentences.
 							</p>
-							<div class="sourceCode" id="cb5">
-								<pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>absalom_events_tidy_begin <span class="ot">&lt;-</span> absalom_events <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(begin_word, begin_word) <span class="sc">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">begin_word =</span> <span class="fu">gsub</span>(<span class="st">&quot;[‘’]&quot;</span>, <span class="st">&quot;&#39;&quot;</span>, begin_word)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(EventID) <span class="sc">%&gt;%</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">begin_word =</span> <span class="fu">str_c</span>(begin_word, <span class="at">collapse =</span> <span class="st">&quot; &quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre>
+							<div class="sourceCode">
+								<pre><code><span>absalom_events_tidy_begin <span class="ot">&lt;-</span> absalom_events <span class="sc">%&gt;%</span></span>
+<span>  <span class="fu">unnest_tokens</span>(begin_word, begin_word) <span>%&gt;%</span></span>
+<span>  <span class="fu">mutate</span>(<span class="at">begin_word =</span> <span class="fu">gsub</span>(<span class="st">&quot;[‘’]&quot;</span>, <span class="st">&quot;&#39;&quot;</span>, begin_word)) <span class="sc">%&gt;%</span></span>
+<span>  <span class="fu">group_by</span>(EventID) <span class="sc">%&gt;%</span></span>
+<span>  <span class="fu">summarize</span>(<span class="at">begin_word =</span> <span class="fu">str_c</span>(begin_word, <span class="at">collapse =</span> <span class="st">&quot; &quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span>  <span class="fu">ungroup</span>()</span></code></pre>
 							</div>
 
 							<p>Repeat the process for the <code>end_word</code> vector.</p>
 
-							<div class="sourceCode" id="cb6">
-								<pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>absalom_events_tidy_end <span class="ot">&lt;-</span> absalom_events <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(end_word, end_word) <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">end_word =</span> <span class="fu">gsub</span>(<span class="st">&quot;[‘’]&quot;</span>, <span class="st">&quot;&#39;&quot;</span>, end_word)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(EventID) <span class="sc">%&gt;%</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">end_word =</span> <span class="fu">str_c</span>(end_word, <span class="at">collapse =</span> <span class="st">&quot; &quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre>
+							<div class="sourceCode">
+								<pre><code><span>absalom_events_tidy_end <span class="ot">&lt;-</span> absalom_events <span class="sc">%&gt;%</span></span>
+<span>  <span class="fu">unnest_tokens</span>(end_word, end_word) <span class="sc">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span>(<span class="at">end_word =</span> <span class="fu">gsub</span>(<span class="st">&quot;[‘’]&quot;</span>, <span class="st">&quot;&#39;&quot;</span>, end_word)) <span class="sc">%&gt;%</span></span>
+<span>  <span class="fu">group_by</span>(EventID) <span class="sc">%&gt;%</span></span>
+<span>  <span class="fu">summarize</span>(<span class="at">end_word =</span> <span class="fu">str_c</span>(end_word, <span class="at">collapse =</span> <span class="st">&quot; &quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span>  <span class="fu">ungroup</span>()</span></code></pre>
 							</div>
 
 							<p><code>Join</code> the tidied <code>begin_word</code> and <code>end_word</code> back to the <code>data_frame</code></p>
@@ -370,18 +369,18 @@
 								<li>Since there are some empty results these should be filtered out.</li>
 								<li>The <code>str_match()</code> function returns a matrix of words. The full line has to be reconstituted by adding the search term to the retrieved term.</li>
 							</ul>
-							<div class="sourceCode" id="cb8">
-								<pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>absalom_event_sentences <span class="ot">&lt;-</span> absalom_events_tidy <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">event_sentence =</span> <span class="fu">str_match</span>(</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    absalom_tidy_string<span class="sc">$</span>text,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;</span><span class="sc">\\</span><span class="st">s*&quot;</span>,</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>      absalom_events_tidy<span class="sc">$</span>begin_word,</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;(.*?)</span><span class="sc">\\</span><span class="st">s*&quot;</span>,</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>      absalom_events_tidy<span class="sc">$</span>end_word</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">event_sentence =</span> <span class="fu">paste</span>(begin_word, event_sentence[, <span class="dv">2</span>]))</span></code></pre>
+							<div class="sourceCode">
+								<pre><code><span>absalom_event_sentences <span class="ot">&lt;-</span> absalom_events_tidy <span class="sc">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span>(<span class="at">event_sentence =</span> <span class="fu">str_match</span>(</span>
+<span>    absalom_tidy_string<span class="sc">$</span>text,</span>
+<span>    <span class="fu">paste</span>(</span>
+<span>      <span class="st">&quot;</span><span class="sc">\\</span><span class="st">s*&quot;</span>,</span>
+<span>      absalom_events_tidy<span class="sc">$</span>begin_word,</span>
+<span>      <span class="st">&quot;(.*?)</span><span class="sc">\\</span><span class="st">s*&quot;</span>,</span>
+<span>      absalom_events_tidy<span class="sc">$</span>end_word</span>
+<span>    )</span>
+<span>  )) <span class="sc">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span>(<span class="at">event_sentence =</span> <span class="fu">paste</span>(begin_word, event_sentence[, <span class="dv">2</span>]))</span></code></pre>
 							</div>
 						</div>
 					</div>
