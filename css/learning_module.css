@@ -317,12 +317,9 @@ ol.activity-list-citation {
 
 .activity-quote-full {
 	position: relative;
-	/*background: #f9f9f9;
-	border-left: 3px solid #34584d;
-	*/padding: 10px 25px;
+	padding: 10px 25px;
 	color: #333;
-	margin: 20px 30px;
-	/*border-radius: 3px;*/
+	margin: 20px 30px;	
 }
 
 	.activity-quote-full p {
@@ -375,7 +372,7 @@ ol.activity-list-citation {
 }
 
 .blockquote:before {
-	/*position: absolute;*/
+	position: absolute;
 	left: 5%;
 	top: 15%;
 	content: "“";
